@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crag Pass: Atlanta prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04457b;--surface:#0A5596;--ink:#F2F6FA;--muted:#B9CDE2;--line:#02315A;--clay:#FFA88C;--stamp:#CFE3FF;--pine:#258463;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11171C;--surface:#1B242C;--ink:#E7ECEF;--muted:#9AA8B3;--line:#2E3A44;--clay:#E0765F;--stamp:#8FB0EA;--pine:#7DC2A5;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11171C;--surface:#1B242C;--ink:#E7ECEF;--muted:#9AA8B3;--line:#2E3A44;--clay:#E0765F;--stamp:#8FB0EA;--pine:#7DC2A5;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Barlow,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:24px 16px 56px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif;margin:0;line-height:1.05}
+h1{font-size:clamp(48px,13vw,76px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:28px;font-weight:700}
+h3{font-size:21px;font-weight:600}
+.sub{color:var(--muted);margin:6px 0 20px;max-width:46ch}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:20px}
+.tabs button{font:600 17px "Barlow Condensed",sans-serif;background:none;border:0;color:var(--muted);padding:10px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--clay)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
+.prog{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.prog b{font:700 56px/1 "Barlow Condensed",sans-serif;color:var(--clay)}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;background:var(--pine);transition:width .4s}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.gym{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;gap:12px;align-items:center;min-height:128px}
+.gym .txt{flex:1;min-width:0}
+.gym p{margin:2px 0 10px;color:var(--muted);font-size:14px}
+.slot{width:92px;height:92px;flex:none;border:2px dashed var(--line);border-radius:50%;display:grid;place-items:center}
+.slot svg{width:100%;height:100%}
+.fresh svg{animation:thump .35s cubic-bezier(.2,1.4,.4,1)}
+@keyframes thump{from{transform:scale(1.7);opacity:0}to{opacity:1}}
+.btn{font:600 15px Barlow,sans-serif;border:2px solid var(--ink);background:var(--ink);color:var(--bg);padding:7px 14px;border-radius:4px;cursor:pointer}
+.btn.ghost{background:none;color:var(--ink);border-color:var(--line);padding:5px 10px;font-size:14px}
+.btn.on{background:var(--pine);border-color:var(--pine);color:#fff}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;margin-bottom:12px}
+form.card{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+form .full{grid-column:1/-1}
+label{display:grid;gap:3px;font-weight:600;font-size:14px}
+input,select,textarea{font:400 16px Barlow,sans-serif;padding:8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
+textarea{min-height:64px;resize:vertical}
+.chips{display:flex;gap:8px;margin:18px 0 12px}
+.chips button{font:600 15px Barlow,sans-serif;padding:5px 14px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.post{display:grid;gap:6px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--muted);font-size:14px}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
+.tag.out{color:var(--pine);border-color:var(--pine)}
+.post footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:4px}
+.empty{color:var(--muted);padding:24px 0;text-align:center}
+.note{margin-top:32px;font-size:13px;color:var(--muted);max-width:60ch}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+@media (max-width:520px){form.card{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.fresh svg{animation:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Crag Pass</h1>
+  <p class="sub">Stamp every gym you climb at and find partners for your next session. Starting in Atlanta, Georgia.</p>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t-pass" aria-selected="true">Passport</button>
+    <button role="tab" id="t-board" aria-selected="false">Partner board</button>
+  </div>
+  <section id="v-pass"></section>
+  <section id="v-board" hidden></section>
+  <p class="note">Prototype with sample data. Gym details come from public listings and need checking before launch. Your stamps and posts are saved in this browser only, so nobody else sees them yet.</p>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+var GYMS=[
+{id:'crg-atl',n:'Central Rock Gym Atlanta',a:'3701 Presidential Pkwy (formerly Stone Summit)',c:'CRG'},
+{id:'wall-crawler',n:'Wall Crawler Rock Club',a:'1522 DeKalb Ave NE',c:'WCR'},
+{id:'atl-rocks',n:'Atlanta Rocks! Intown',a:'Atlanta',c:'ATR'},
+{id:'overlook',n:'The Overlook Bouldering + Fitness',a:'Atlanta',c:'OVL'},
+{id:'gt',n:'Georgia Tech Climbing Gym',a:'750 Ferst Dr NW',c:'GT'},
+{id:'gsu',n:'Georgia State Climbing Wall',a:'Student Recreation Center, Piedmont Ave',c:'GSU'},
+{id:'kennesaw',n:'Stone Summit Kennesaw',a:'Kennesaw',c:'SSK'},
+{id:'escalade',n:'Escalade Indoor Rock Climbing',a:'Kennesaw',c:'ESC'}];
+var CRAGS=[{id:'boat-rock',n:'Boat Rock',a:'Fulton County bouldering'},{id:'rocktown',n:'Rocktown',a:'Northwest Georgia bouldering'}];
+var SEED=[
+{id:'s1',place:'boat-rock',date:'2026-11-28',grades:'V2\u2013V5',note:'Bringing two pads. Looking for a spotter and someone who knows the Yellow Wall area.',by:'Maya',sample:1},
+{id:'s2',place:'crg-atl',date:'2026-11-25',grades:'5.9\u20135.11',note:'Weeknight top-rope and lead. Need a belay partner after 6.',by:'Devon',sample:1},
+{id:'s3',place:'rocktown',date:'2026-11-29',grades:'V3\u2013V6',note:'Day trip from Atlanta. Two carpool seats open.',by:'Priya',sample:1}];
+var S={stamps:{},posts:[],joined:{}},filter='all',fresh=null;
+try{var raw=localStorage.getItem('cragpass');if(raw)S=Object.assign(S,JSON.parse(raw))}catch(x){}
+function save(){try{localStorage.setItem('cragpass',JSON.stringify(S))}catch(x){}}
+function el(t,p){var n=document.createElement(t);p=p||{};for(var k in p){if(k==='text')n.textContent=p[k];else if(k==='on')for(var ev in p.on)n.addEventListener(ev,p.on[ev]);else n.setAttribute(k,p[k])}
+for(var i=2;i<arguments.length;i++)if(arguments[i])n.appendChild(arguments[i]);return n}
+function iso(d){var m=d.getMonth()+1,dd=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(dd<10?'0':'')+dd}
+function fmt(s){return new Date(s+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
+function placeOf(id){return GYMS.concat(CRAGS).filter(function(g){return g.id===id})[0]||{n:'Unknown'}}
+function isOut(id){return CRAGS.some(function(c){return c.id===id})}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.className='toast show';clearTimeout(toast.h);toast.h=setTimeout(function(){t.className='toast'},2200)}
+var NS='http://www.w3.org/2000/svg';
+function stampSvg(g,date,i){
+var s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 100 100');s.setAttribute('role','img');s.setAttribute('aria-label','Stamp for '+g.n);
+s.style.transform='rotate('+((i*37)%24-12)+'deg)';s.style.color='var(--stamp)';
+function add(t,a,txt){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,a[k]);if(txt)n.textContent=txt;s.appendChild(n)}
+add('circle',{cx:50,cy:50,r:46,fill:'none',stroke:'currentColor','stroke-width':3});
+add('circle',{cx:50,cy:50,r:39,fill:'none',stroke:'currentColor','stroke-width':1.2});
+add('text',{x:50,y:34,'text-anchor':'middle',fill:'currentColor','font-size':10,'font-family':'Barlow Condensed,sans-serif','font-weight':700},'ATLANTA');
+add('text',{x:50,y:60,'text-anchor':'middle',fill:'currentColor','font-size':g.c.length>3?24:30,'font-family':'Barlow Condensed,sans-serif','font-weight':700},g.c);
+add('text',{x:50,y:76,'text-anchor':'middle',fill:'currentColor','font-size':9,'font-family':'Barlow Condensed,sans-serif','font-weight':600},new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}));
+return s}
+function renderPass(){
+var v=document.getElementById('v-pass');v.textContent='';
+var n=Object.keys(S.stamps).filter(function(k){return GYMS.some(function(g){return g.id===k})}).length;
+v.appendChild(el('div',{class:'prog'},el('b',{text:n+' of '+GYMS.length}),el('span',{text:'gyms stamped'})));
+var bar=el('div',{class:'bar'},el('i',{style:'width:'+(n/GYMS.length*100)+'%'}));v.appendChild(bar);
+var grid=el('div',{class:'grid'});
+GYMS.forEach(function(g,i){
+var d=S.stamps[g.id];
+var slot=el('div',{class:'slot'+(fresh===g.id?' fresh':'')});if(d){slot.style.borderStyle='solid';slot.style.borderColor='transparent';slot.appendChild(stampSvg(g,d,i))}
+var btn=d?el('button',{class:'btn ghost',text:'Remove stamp',on:{click:function(){delete S.stamps[g.id];fresh=null;save();renderPass()}}})
+:el('button',{class:'btn',text:'Stamp passport',on:{click:function(){S.stamps[g.id]=iso(new Date());fresh=g.id;save();renderPass();toast('Stamped '+g.n)}}});
+grid.appendChild(el('div',{class:'gym'},el('div',{class:'txt'},el('h3',{text:g.n}),el('p',{text:g.a}),btn),slot))});
+v.appendChild(grid)}
+function renderBoard(){
+var v=document.getElementById('v-board');v.textContent='';
+var f=el('form',{class:'card'});
+var sel=el('select',{id:'f-place',required:''});
+var og1=el('optgroup',{label:'Indoor gyms'}),og2=el('optgroup',{label:'Outdoor areas'});
+GYMS.forEach(function(g){og1.appendChild(el('option',{value:g.id,text:g.n}))});
+CRAGS.forEach(function(g){og2.appendChild(el('option',{value:g.id,text:g.n}))});
+sel.appendChild(og1);sel.appendChild(og2);
+f.appendChild(el('h2',{class:'full',text:'Find a partner'}));
+f.appendChild(el('label',{class:'full'},document.createTextNode('Where'),sel));
+f.appendChild(el('label',{},document.createTextNode('Date'),el('input',{type:'date',id:'f-date',required:'',min:iso(new Date())})));
+f.appendChild(el('label',{},document.createTextNode('Grades'),el('input',{type:'text',id:'f-grades',placeholder:'V2\u2013V5 or 5.9\u20135.11',maxlength:'24',required:''})));
+f.appendChild(el('label',{class:'full'},document.createTextNode('What are you looking for?'),el('textarea',{id:'f-note',maxlength:'200',placeholder:'Belay partner, spotter, carpool, anything else'})));
+f.appendChild(el('label',{},document.createTextNode('Your first name'),el('input',{type:'text',id:'f-by',maxlength:'20',required:''})));
+f.appendChild(el('div',{style:'align-self:end'},el('button',{class:'btn',type:'submit',text:'Post to board'})));
+f.addEventListener('submit',function(e){e.preventDefault();
+S.posts.push({id:'u'+Date.now(),place:sel.value,date:document.getElementById('f-date').value,grades:document.getElementById('f-grades').value.trim(),note:document.getElementById('f-note').value.trim(),by:document.getElementById('f-by').value.trim()});
+save();renderBoard();toast('Posted')});
+v.appendChild(f);
+var chips=el('div',{class:'chips'});
+[['all','All'],['in','Indoor'],['out','Outdoor']].forEach(function(c){chips.appendChild(el('button',{type:'button','aria-pressed':String(filter===c[0]),text:c[1],on:{click:function(){filter=c[0];renderBoard()}}}))});
+v.appendChild(chips);
+var list=SEED.concat(S.posts).filter(function(p){return filter==='all'||(filter==='out')===isOut(p.place)}).sort(function(a,b){return a.date<b.date?-1:1});
+if(!list.length)v.appendChild(el('p',{class:'empty',text:'No posts here yet. Be the first to post a session.'}));
+list.forEach(function(p){
+var pl=placeOf(p.place),out=isOut(p.place),on=!!S.joined[p.id];
+var cnt=(p.sample?1:0)+(on?1:0);
+v.appendChild(el('article',{class:'card post'},
+el('h3',{text:pl.n}),
+el('div',{class:'meta'},el('span',{text:fmt(p.date)}),el('span',{text:p.grades}),el('span',{class:'tag'+(out?' out':''),text:out?'Outdoor':'Indoor'}),p.sample?el('span',{class:'tag',text:'Sample post'}):null),
+p.note?el('p',{style:'margin:0',text:p.note}):null,
+el('footer',{},el('span',{class:'meta',text:'Posted by '+p.by}),
+el('button',{class:'btn'+(on?' on':''),text:on?'You\u2019re in':'I\u2019m in','aria-pressed':String(on),on:{click:function(){if(S.joined[p.id])delete S.joined[p.id];else{S.joined[p.id]=1;toast('Messaging comes in the next version')}save();renderBoard()}}}))))})}
+function tab(which){
+var p=which==='pass';
+document.getElementById('v-pass').hidden=!p;document.getElementById('v-board').hidden=p;
+document.getElementById('t-pass').setAttribute('aria-selected',String(p));
+document.getElementById('t-board').setAttribute('aria-selected',String(!p));
+if(p)renderPass();else renderBoard()}
+document.getElementById('t-pass').onclick=function(){tab('pass')};
+document.getElementById('t-board').onclick=function(){tab('board')};
+renderPass();
+</script>
+</body>
+</html>
