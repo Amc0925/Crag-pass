@@ -5,64 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Crag Pass: Atlanta prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rokkitt:wght@600;700;800&family=Zilla+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+<script>try{var q=JSON.parse(localStorage.getItem("cragpass")||"{}");if(q.settings&&q.settings.theme)document.documentElement.setAttribute("data-theme",q.settings.theme)}catch(e){}</script>
 <style>
-:root{--bg:#89271e;--surface:#6f1f18;--ink:#fcc679;--muted:#89e3c6;--line:#d73525;--clay:#f8b16f;--stamp:#89e3c6;--pine:#89e3c6;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#89271e;--surface:#6f1f18;--ink:#fcc679;--muted:#89e3c6;--line:#d73525;--clay:#f8b16f;--stamp:#89e3c6;--pine:#89e3c6;--onpine:#6f1f18;--ban:linear-gradient(135deg,var(--clay),var(--stamp));color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="sandstone"]{--bg:#1c1610;--surface:#2b2118;--ink:#cca20c;--muted:#bf9a63;--line:#8e6339;--clay:#cca20c;--stamp:#bf9a63;--pine:#bf9a63;--onpine:#1c1610;--ban:linear-gradient(135deg,#862810,#cca20c);color-scheme:dark}
+:root[data-theme="rosewood"]{--bg:#fdfdfd;--surface:#e2c1b7;--ink:#354643;--muted:#7c444f;--line:#b4848e;--clay:#7c444f;--stamp:#7c444f;--pine:#354643;--onpine:#fdfdfd;--ban:linear-gradient(135deg,#b4848e,#354643);color-scheme:light}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Barlow,system-ui,-apple-system,"Segoe UI",sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.5 "Zilla Slab",Rockwell,Georgia,serif}
 main{max-width:720px;margin:0 auto;padding:24px 16px 110px}
-h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif;margin:0;line-height:1.05}
+h1,h2,h3{font-family:Rokkitt,Rockwell,"Roboto Slab",serif;margin:0;line-height:1.05}
 h1{font-size:clamp(48px,13vw,76px);font-weight:700;letter-spacing:-.01em}
 h2{font-size:28px;font-weight:700}
 h3{font-size:21px;font-weight:600}
 .sub{color:var(--muted);margin:6px 0 20px;max-width:46ch}
 .tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:20px}
-.tabs button{font:600 17px "Barlow Condensed",sans-serif;background:none;border:0;color:var(--muted);padding:10px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabs button{font:600 17px Rokkitt,Rockwell,serif;background:none;border:0;color:var(--muted);padding:10px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
 .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--clay)}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
 .prog{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
-.prog b{font:700 56px/1 "Barlow Condensed",sans-serif;color:var(--clay)}
+.prog b{font:700 56px/1 Rokkitt,Rockwell,serif;color:var(--clay)}
 .bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:20px}
 .bar i{display:block;height:100%;background:var(--pine);transition:width .4s}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
 .gym{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;gap:12px;align-items:center;min-height:128px}
 .gym .txt{flex:1;min-width:0}
-.gym p{margin:2px 0 10px;color:var(--muted);font-size:14px}
+.gym p{margin:2px 0 10px;color:var(--muted);font-size:16px}
 .slot{width:92px;height:92px;flex:none;border:2px dashed var(--line);border-radius:50%;display:grid;place-items:center}
 .slot svg{width:100%;height:100%}
 .fresh svg{animation:thump .35s cubic-bezier(.2,1.4,.4,1)}
 @keyframes thump{from{transform:scale(1.7);opacity:0}to{opacity:1}}
-.btn{font:600 15px Barlow,sans-serif;border:2px solid var(--ink);background:var(--ink);color:var(--bg);padding:7px 14px;border-radius:4px;cursor:pointer}
-.btn.ghost{background:none;color:var(--ink);border-color:var(--line);padding:5px 10px;font-size:14px}
-.btn.on{background:var(--pine);border-color:var(--pine);color:#6f1f18}
+.btn{font:600 17px "Zilla Slab",Georgia,serif;border:2px solid var(--ink);background:var(--ink);color:var(--bg);padding:7px 14px;border-radius:4px;cursor:pointer}
+.btn.ghost{background:none;color:var(--ink);border-color:var(--line);padding:5px 10px;font-size:16px}
+.btn.on{background:var(--pine);border-color:var(--pine);color:var(--onpine)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;margin-bottom:12px}
 form.card{display:grid;gap:10px;grid-template-columns:1fr 1fr}
 form .full{grid-column:1/-1}
-label{display:grid;gap:3px;font-weight:600;font-size:14px}
-input,select,textarea{font:400 16px Barlow,sans-serif;padding:8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
+label{display:grid;gap:3px;font-weight:600;font-size:16px}
+input,select,textarea{font:400 18px "Zilla Slab",Georgia,serif;padding:8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
 textarea{min-height:64px;resize:vertical}
 .chips{display:flex;gap:8px;margin:18px 0 12px}
-.chips button{font:600 15px Barlow,sans-serif;padding:5px 14px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.chips button{font:600 17px "Zilla Slab",Georgia,serif;padding:5px 14px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
 .chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .post{display:grid;gap:6px}
-.meta{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--muted);font-size:14px}
-.tag{font-size:12px;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--muted);font-size:16px}
+.tag{font-size:14px;border:1px solid var(--line);border-radius:3px;padding:0 6px;color:var(--muted)}
 .tag.out{color:var(--pine);border-color:var(--pine)}
-.post footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:4px}
+.tag.priv{color:var(--clay);border-color:var(--clay)}
+label .hint{font-weight:400}
+.post footer{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:4px}
+.author{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.author b{font-weight:600}
+.author .nm{display:flex;align-items:center;gap:8px}
+.author .hint{display:block}
+.mono{font:700 20px Rokkitt,Rockwell,serif;color:var(--bg)}
 .empty{color:var(--muted);padding:24px 0;text-align:center}
-.note{margin-top:32px;font-size:13px;color:var(--muted);max-width:60ch}
-.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+.note{margin-top:32px;font-size:15px;color:var(--muted);max-width:60ch}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font-size:16px;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.show{opacity:1}
 .bottombar{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;background:var(--surface);border-top:2px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-.bottombar button{flex:1;max-width:720px;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;color:var(--muted);font:600 15px "Barlow Condensed",sans-serif;letter-spacing:.04em;padding:10px 16px;cursor:pointer}
-.bottombar button[aria-current="true"]{color:var(--clay)}
+.bottombar button{flex:1;max-width:720px;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;color:var(--muted);font:600 15px Rokkitt,Rockwell,serif;letter-spacing:.04em;padding:10px 16px;cursor:pointer}
+.bottombar button[aria-current="true"]{color:var(--ink);box-shadow:inset 0 3px 0 var(--clay)}
 .bottombar button:focus-visible{outline:3px solid var(--stamp);outline-offset:-3px}
 .avatar{border-radius:50%;overflow:hidden;display:grid;place-items:center;flex:none;background:var(--line)}
 .avatar img{width:100%;height:100%;object-fit:cover}
 .avrow{display:flex;gap:16px;align-items:center}
 .avbtns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.hint{margin:0;font-size:13px;color:var(--muted)}
+.hint{margin:0;font-size:15px;color:var(--muted)}
 .avbtns .hint{flex-basis:100%}
 .gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .gallery button{background:none;border:3px solid transparent;border-radius:50%;padding:2px;cursor:pointer}
@@ -70,6 +80,41 @@ textarea{min-height:64px;resize:vertical}
 .gallery .avatar{width:100%;aspect-ratio:1}
 .savebar{display:flex;gap:12px;align-items:center}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.pcard{padding:0;overflow:hidden}
+.banner{height:clamp(96px,24vw,140px);background:var(--ban);overflow:hidden}
+.banner img{width:100%;height:100%;object-fit:cover;display:block}
+.bnprev .banner{border-radius:6px;border:1px solid var(--line)}
+.pbody{padding:0 16px 16px}
+.phead{display:flex;align-items:flex-start;gap:14px;margin-top:-36px;margin-bottom:12px}
+.pname{padding-top:44px;min-width:0}
+.ring{border:4px solid var(--surface)}
+.pname h2{font-size:32px}
+.bio{margin:12px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px;text-align:center;display:grid;gap:2px}
+.stat b{font:700 32px/1 Rokkitt,Rockwell,serif;color:var(--clay)}
+.stat span{font-size:15px;color:var(--muted)}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px;margin-top:10px}
+.minis svg{width:100%;height:auto;display:block}
+.notice{background:var(--surface);border:1px solid var(--clay);border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:16px}
+.prow{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+.btn.danger{background:var(--clay);border-color:var(--clay);color:var(--bg)}
+.tx{margin:8px 0;font-size:17px}
+.stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+#v-settings>h2,#v-friends>h2{margin-bottom:12px}
+.themes{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:10px}
+.theme{display:grid;gap:8px;text-align:left;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font:600 18px "Zilla Slab",Georgia,serif}
+.theme[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.sw{display:flex;gap:4px}
+.sw i{flex:1;height:24px;border-radius:3px;border:1px solid rgba(128,128,128,.5)}
+.frow{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.frow .who{flex:1;min-width:0}
+.frow b{font-weight:600;overflow-wrap:anywhere}
+.frow .hint{display:block}
+.fq{margin:6px 0 10px}
+.linkrow{display:flex;align-items:center;gap:12px;flex:1;min-width:0;background:none;border:0;padding:0;margin:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.linkrow:hover b{text-decoration:underline}
+.linkrow:focus-visible{outline:3px solid var(--stamp);outline-offset:3px;border-radius:6px}
 @media (max-width:520px){form.card{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.fresh svg{animation:none}.bar i{transition:none}}
 </style>
@@ -77,7 +122,7 @@ textarea{min-height:64px;resize:vertical}
 <body>
 <main>
   <h1>Crag Pass</h1>
-  <p class="sub">Stamp every gym you climb at and find partners for your next session. Starting in Atlanta, Georgia.</p>
+  <p class="sub">Your climbing partner is out there. Go find them. Be the reason they send.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-board" aria-selected="true">Partner board</button>
     <button role="tab" id="t-pass" aria-selected="false">Passport</button>
@@ -85,10 +130,14 @@ textarea{min-height:64px;resize:vertical}
   <section id="v-board"></section>
   <section id="v-pass" hidden></section>
   <section id="v-profile" hidden></section>
+  <section id="v-friends" hidden></section>
+  <section id="v-settings" hidden></section>
   <p class="note">Prototype with sample data. Gym details come from public listings and need checking before launch. Your stamps and posts are saved in this browser only, so nobody else sees them yet.</p>
 </main>
 <nav class="bottombar" aria-label="Account">
   <button id="t-profile" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span>Profile</span></button>
+  <button id="t-friends" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.8 3-6 6.5-6s6.5 2.2 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14c2.8 0 4.5 1.8 4.5 4.5"/></svg><span>Friends</span></button>
+  <button id="t-settings" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h8M20 6h-2M4 12h2M14 12h6M4 18h10M20 18h-2"/><circle cx="15" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="17" cy="18" r="2.2"/></svg><span>Settings</span></button>
 </nav>
 <div class="toast" id="toast" role="status"></div>
 <script>
@@ -108,6 +157,10 @@ var SEED=[
 {id:'s3',place:'rocktown',date:'2026-11-29',grades:'V3\u2013V6',note:'Day trip from Atlanta. Two carpool seats open.',by:'Priya',sample:1}];
 var S={stamps:{},posts:[],joined:{}},filter='all',fresh=null;
 try{var raw=localStorage.getItem('cragpass');if(raw)S=Object.assign(S,JSON.parse(raw))}catch(x){}
+var THEMES=[{id:'clay',n:'Red Clay',c:['#89271e','#fcc679','#f8b16f','#89e3c6','#d73525']},{id:'rosewood',n:'Rosewood',c:['#b4848e','#354643','#e2c1b7','#fdfdfd','#7c444f']},{id:'sandstone',n:'Sandstone',c:['#cca20c','#bf9a63','#8e6339','#862810','#1c1610']}];
+function applyTheme(t){document.documentElement.setAttribute('data-theme',THEMES.some(function(x){return x.id===t})?t:'clay')}
+applyTheme(S.settings&&S.settings.theme);
+if(!S.uid)S.uid='d'+Math.random().toString(36).slice(2,10);
 function save(){try{localStorage.setItem('cragpass',JSON.stringify(S));return localStorage.getItem('cragpass')!==null}catch(x){return false}}
 function el(t,p){var n=document.createElement(t);p=p||{};for(var k in p){if(k==='text')n.textContent=p[k];else if(k==='on')for(var ev in p.on)n.addEventListener(ev,p.on[ev]);else n.setAttribute(k,p[k])}
 for(var i=2;i<arguments.length;i++)if(arguments[i])n.appendChild(arguments[i]);return n}
@@ -123,9 +176,9 @@ s.style.transform='rotate('+((i*37)%24-12)+'deg)';s.style.color='var(--stamp)';
 function add(t,a,txt){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,a[k]);if(txt)n.textContent=txt;s.appendChild(n)}
 add('circle',{cx:50,cy:50,r:46,fill:'none',stroke:'currentColor','stroke-width':3});
 add('circle',{cx:50,cy:50,r:39,fill:'none',stroke:'currentColor','stroke-width':1.2});
-add('text',{x:50,y:34,'text-anchor':'middle',fill:'currentColor','font-size':10,'font-family':'Barlow Condensed,sans-serif','font-weight':700},'ATLANTA');
-add('text',{x:50,y:60,'text-anchor':'middle',fill:'currentColor','font-size':g.c.length>3?24:30,'font-family':'Barlow Condensed,sans-serif','font-weight':700},g.c);
-add('text',{x:50,y:76,'text-anchor':'middle',fill:'currentColor','font-size':9,'font-family':'Barlow Condensed,sans-serif','font-weight':600},new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}));
+add('text',{x:50,y:34,'text-anchor':'middle',fill:'currentColor','font-size':10,'font-family':'Rokkitt,serif','font-weight':700},'ATLANTA');
+add('text',{x:50,y:60,'text-anchor':'middle',fill:'currentColor','font-size':g.c.length>3?24:30,'font-family':'Rokkitt,serif','font-weight':700},g.c);
+add('text',{x:50,y:76,'text-anchor':'middle',fill:'currentColor','font-size':9,'font-family':'Rokkitt,serif','font-weight':600},new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}));
 return s}
 function renderPass(){
 var v=document.getElementById('v-pass');v.textContent='';
@@ -140,6 +193,47 @@ var btn=d?el('button',{class:'btn ghost',text:'Remove stamp',on:{click:function(
 :el('button',{class:'btn',text:'Stamp passport',on:{click:function(){S.stamps[g.id]=iso(new Date());fresh=g.id;save();renderPass();toast('Stamped '+g.n)}}});
 grid.appendChild(el('div',{class:'gym'},el('div',{class:'txt'},el('h3',{text:g.n}),el('p',{text:g.a}),btn),slot))});
 v.appendChild(grid)}
+var ADJ=['Granite','Alpine','Crimson','Chalky','Steady','Sunny','Mossy','Windy','Rusty','Bold','Quiet','Swift'];
+var NOUN=['Marmot','Falcon','Ibex','Otter','Pika','Heron','Lynx','Badger','Raven','Gecko','Bison','Fox'];
+function hsh(t){var h=2166136261;for(var i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)>>>0}h^=h>>>15;h=Math.imul(h,2246822507)>>>0;h^=h>>>13;h=Math.imul(h,3266489909)>>>0;h^=h>>>16;return h>>>0}
+function nick(seed){var h=hsh(seed);return ADJ[h%12]+' '+NOUN[Math.floor(h/12)%12]}
+function anonAvatar(seed,size){
+var d=el('div',{class:'avatar',style:'width:'+size+'px;height:'+size+'px;background:'+['var(--clay)','var(--stamp)','var(--ink)'][hsh(seed)%3]});
+d.innerHTML='<svg viewBox="0 0 24 24" width="58%" height="58%" fill="var(--bg)" aria-hidden="true"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-4.6 3.8-7.5 8.5-7.5s8.5 2.9 8.5 7.5z"/></svg>';return d}
+function monoAvatar(name,size){
+var d=el('div',{class:'avatar',style:'width:'+size+'px;height:'+size+'px;background:'+['var(--clay)','var(--stamp)','var(--ink)'][(name||'?').length%3]});
+d.appendChild(el('span',{class:'mono',text:(name||'?').charAt(0).toUpperCase()}));return d}
+var SAMPLE_USERS=[
+{u:'maya_climbs',a:'Boulders at Boat Rock'},{u:'devon_sends',a:'Weeknights at Central Rock Gym'},{u:'priya_v4',a:'Day trips to Rocktown'},
+{u:'atl_boulderer',a:'Intown gyms'},{u:'rocktown_rae',a:'Outdoor bouldering'},{u:'chalk_and_coffee',a:'Morning sessions'}];
+var RESERVED=['admin','support','cragpass','crag_pass','moderator','climber','staff','help','official'];
+var friendQ='';
+function acctStep(){var P=S.profile;if(!P||!P.name)return'none';if(!P.username||!P.contact)return'details';if(!P.verified)return'verify';return'ok'}
+function hasAcct(){return acctStep()==='ok'}
+function contactWord(c){return c&&c.type==='phone'?'phone number':'email'}
+function maskContact(c){if(!c)return'';if(c.type==='phone')return'*** *** '+c.value.slice(-4);var i=c.value.indexOf('@');return c.value.charAt(0)+'***'+c.value.slice(i)}
+function checkContact(type,raw){raw=(raw||'').trim();
+if(type==='phone'){var d=raw.replace(/[\s().-]/g,'');if(!/^\+?\d{10,15}$/.test(d))return{ok:false,msg:'Enter a valid phone number with area code.'};return{ok:true,value:d}}
+var e=raw.toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e))return{ok:false,msg:'Enter a valid email address.'};return{ok:true,value:e}}
+var VER=null;
+function newCode(){var a=new Uint32Array(1);crypto.getRandomValues(a);VER={code:String(100000+(a[0]%900000)),exp:Date.now()+600000,tries:0}}
+function gateInfo(lead){var st=acctStep();
+if(st==='none')return{text:lead+' Create your profile, add your email or phone number, and verify it.',label:'Create your profile',edit:true};
+if(st==='details')return{text:'Finish your account: add a username and your email or phone number, then verify it.',label:'Finish your account',edit:true};
+return{text:'Verify your '+contactWord(S.profile.contact)+' to finish your account.',label:'Verify now',edit:false}}
+function userCheck(u,cur){
+if(!u)return{ok:false,msg:'Choose a username.'};
+if(!/^[a-z][a-z0-9_]{2,19}$/.test(u))return{ok:false,msg:'Use 3 to 20 characters: lowercase letters, numbers, and underscores, starting with a letter.'};
+if(u!==cur&&(RESERVED.indexOf(u)>=0||SAMPLE_USERS.some(function(x){return x.u===u})))return{ok:false,msg:'That username is taken. Try another.'};
+return{ok:true,msg:'@'+u+' is available.'}}
+function visLabel(v){return v==='friends'?'Friends only':v==='named'?'Public with name':'Public'}
+var VHINT={public:'Public posts hide your name and photo. Other climbers see a nickname.',named:'Every climber will see your first name and photo, along with the gym or crag and the time. Only choose this if you are comfortable with strangers knowing where you will be.',friends:'Only your friends will see this, along with your name and photo. Friends lists arrive with accounts, so for now this just labels your post.'};
+function authorRow(p){
+var pub=(p.visibility!=='friends'&&p.visibility!=='named'),mine=!p.sample,seed=p.sample?'sample-'+p.id:S.uid,sub='',name,av;
+if(pub){name=nick(seed);av=anonAvatar(seed,44);if(mine)sub='Your name and photo are hidden on public posts.'}
+else{name=p.by;av=(mine&&S.profile&&S.profile.avatar)?avatarEl(S.profile.avatar,44):monoAvatar(p.by,44);
+var a=[];if(mine&&S.profile){if(S.profile.home)a.push(placeOf(S.profile.home).n);if(S.profile.grade)a.push(S.profile.grade)}sub=p.visibility==='named'?(mine?'Your name and photo are visible to everyone on this post.':''):a.join(' \u00b7 ')}
+return el('div',{class:'author'},av,el('div',{},el('div',{class:'nm'},el('b',{text:name}),mine?el('span',{class:'tag',text:'You'}):null),sub?el('span',{class:'hint',text:sub}):null))}
 function renderBoard(){
 var v=document.getElementById('v-board');v.textContent='';
 var f=el('form',{class:'card'});
@@ -151,14 +245,27 @@ sel.appendChild(og1);sel.appendChild(og2);
 f.appendChild(el('h2',{class:'full',text:'Find a partner'}));
 f.appendChild(el('label',{class:'full'},document.createTextNode('Where'),sel));
 f.appendChild(el('label',{},document.createTextNode('Date'),el('input',{type:'date',id:'f-date',required:'',min:iso(new Date())})));
-f.appendChild(el('label',{},document.createTextNode('Grades'),el('input',{type:'text',id:'f-grades',placeholder:'V2\u2013V5 or 5.9\u20135.11',maxlength:'24',required:''})));
-f.appendChild(el('label',{class:'full'},document.createTextNode('What are you looking for?'),el('textarea',{id:'f-note',maxlength:'200',placeholder:'Belay partner, spotter, carpool, anything else'})));
-f.appendChild(el('label',{},document.createTextNode('Your first name'),el('input',{type:'text',id:'f-by',maxlength:'20',required:''})));
-f.appendChild(el('div',{style:'align-self:end'},el('button',{class:'btn',type:'submit',text:'Post to board'})));
+f.appendChild(el('label',{},document.createTextNode('Grades (optional)'),el('input',{type:'text',id:'f-grades',placeholder:'V2\u2013V5 or 5.9\u20135.11',maxlength:'24'})));
+f.appendChild(el('label',{class:'full'},document.createTextNode('What are you looking for? (optional)'),el('textarea',{id:'f-note',maxlength:'200',placeholder:'Belay partner, spotter, carpool, anything else'})));
+var vis=el('select',{id:'f-vis'});
+vis.appendChild(el('option',{value:'public',text:'Public (nickname only)'}));
+vis.appendChild(el('option',{value:'named',text:'Public with my name'}));
+vis.appendChild(el('option',{value:'friends',text:'Friends only'}));
+var vh=el('span',{class:'hint',text:VHINT.public});
+vis.addEventListener('change',function(){vh.textContent=VHINT[vis.value]||VHINT.public});
+vis.value=(S.settings&&S.settings.defaultVis)||'public';vis.dispatchEvent(new Event('change'));
+f.appendChild(el('label',{class:'full'},document.createTextNode('Who can see this?'),vis,vh));
+f.appendChild(el('div',{class:'full'},el('button',{class:'btn',type:'submit',text:'Post to board'})));
 f.addEventListener('submit',function(e){e.preventDefault();
-S.posts.push({id:'u'+Date.now(),place:sel.value,date:document.getElementById('f-date').value,grades:document.getElementById('f-grades').value.trim(),note:document.getElementById('f-note').value.trim(),by:document.getElementById('f-by').value.trim()});
+if(!hasAcct())return;
+S.posts.push({id:'u'+Date.now(),place:sel.value,date:document.getElementById('f-date').value,grades:document.getElementById('f-grades').value.trim(),note:document.getElementById('f-note').value.trim(),visibility:vis.value,by:S.profile.name,uid:S.uid});
 save();renderBoard();toast('Posted')});
-v.appendChild(f);
+if(hasAcct())v.appendChild(f);
+else{var g=gateInfo('Posting is for climbers with an account.');
+v.appendChild(el('section',{class:'card'},el('h2',{text:'Find a partner'}),
+el('p',{class:'tx',text:g.text+' You can still browse the board without one.'}),
+el('button',{type:'button',class:'btn',text:g.label,on:{click:function(){profEdit=g.edit;tab('profile')}}}),
+el('p',{class:'hint',style:'margin-top:10px',text:'Prototype note: this device stands in for the server for now. Real sign-in and verification codes arrive with the shared database.'})))}
 var chips=el('div',{class:'chips'});
 [['all','All'],['in','Indoor'],['out','Outdoor']].forEach(function(c){chips.appendChild(el('button',{type:'button','aria-pressed':String(filter===c[0]),text:c[1],on:{click:function(){filter=c[0];renderBoard()}}}))});
 v.appendChild(chips);
@@ -168,12 +275,13 @@ list.forEach(function(p){
 var pl=placeOf(p.place),out=isOut(p.place),on=!!S.joined[p.id];
 var cnt=(p.sample?1:0)+(on?1:0);
 v.appendChild(el('article',{class:'card post'},
+authorRow(p),
 el('h3',{text:pl.n}),
-el('div',{class:'meta'},el('span',{text:fmt(p.date)}),el('span',{text:p.grades}),el('span',{class:'tag'+(out?' out':''),text:out?'Outdoor':'Indoor'}),p.sample?el('span',{class:'tag',text:'Sample post'}):null),
+el('div',{class:'meta'},el('span',{text:fmt(p.date)}),p.grades?el('span',{text:p.grades}):null,el('span',{class:'tag'+(out?' out':''),text:out?'Outdoor':'Indoor'}),el('span',{class:'tag'+(p.visibility==='friends'?' priv':''),text:visLabel(p.visibility)}),p.sample?el('span',{class:'tag',text:'Sample post'}):null),
 p.note?el('p',{style:'margin:0',text:p.note}):null,
-el('footer',{},el('span',{class:'meta',text:'Posted by '+p.by}),
-el('button',{class:'btn'+(on?' on':''),text:on?'You\u2019re in':'I\u2019m in','aria-pressed':String(on),on:{click:function(){if(S.joined[p.id])delete S.joined[p.id];else{S.joined[p.id]=1;toast('Messaging comes in the next version')}save();renderBoard()}}}))))})}
-var savedFlag=0;
+el('footer',{},
+!p.sample?confirmBtn('Delete post','Tap again to delete',function(){S.posts=S.posts.filter(function(x){return x.id!==p.id});delete S.joined[p.id];save();renderBoard();toast('Post deleted')}):el('button',{class:'btn'+(on?' on':''),text:on?'You\u2019re in':'I\u2019m in','aria-pressed':String(on),on:{click:function(){if(S.joined[p.id])delete S.joined[p.id];else{S.joined[p.id]=1;toast('Messaging comes in the next version')}save();renderBoard()}}}))))})}
+var savedFlag=0,profEdit=false;
 var AV=[
 {id:'summit',n:'Summit',d:'<path d="M2 20 9 6l4.5 8 2.5-4L22 20z"/>'},
 {id:'sunrise',n:'Sunrise',d:'<path d="M3 18h18v2H3zM6.5 16a5.5 5.5 0 0 1 11 0zM11 4h2v4h-2zM4.2 8.6l1.4-1.4 2.8 2.8-1.4 1.4zM19.8 8.6l-1.4-1.4-2.8 2.8 1.4 1.4z"/>'},
@@ -196,6 +304,19 @@ if(av&&av.type==='photo'&&/^data:image\/jpeg;base64,/.test(av.data)){var d=el('d
 if(av&&av.type==='icon'){for(var i=0;i<AV.length;i++)if(AV[i].id===av.id)return iconAvatar(AV[i],i,size)}
 var e=el('div',{class:'avatar',style:'width:'+size+'px;height:'+size+'px;border:2px dashed var(--line)'});
 e.innerHTML='<svg viewBox="0 0 24 24" width="55%" height="55%" fill="none" stroke="var(--muted)" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>';return e}
+function bannerEl(b){
+var d=el('div',{class:'banner'});
+if(b&&b.type==='photo'&&/^data:image\/jpeg;base64,/.test(b.data))d.appendChild(el('img',{src:b.data,alt:'Your profile banner'}));
+return d}
+function readBanner(file,cb){
+if(!file||!/^image\//.test(file.type)){toast('Please choose an image file');return}
+var url=URL.createObjectURL(file),img=new Image();
+img.onload=function(){var sw=img.width,sh=sw/3.75;if(sh>img.height){sh=img.height;sw=sh*3.75}
+var c=document.createElement('canvas');c.width=750;c.height=200;
+c.getContext('2d').drawImage(img,(img.width-sw)/2,(img.height-sh)/2,sw,sh,0,0,750,200);
+URL.revokeObjectURL(url);cb(c.toDataURL('image/jpeg',0.82))};
+img.onerror=function(){URL.revokeObjectURL(url);toast('That image could not be read')};
+img.src=url}
 function readPhoto(file,cb){
 if(!file||!/^image\//.test(file.type)){toast('Please choose an image file');return}
 var url=URL.createObjectURL(file),img=new Image();
@@ -204,7 +325,52 @@ c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,240,24
 URL.revokeObjectURL(url);cb(c.toDataURL('image/jpeg',0.82))};
 img.onerror=function(){URL.revokeObjectURL(url);toast('That image could not be read')};
 img.src=url}
+function verifyCard(){
+var c=S.profile.contact;if(!VER)newCode();
+var msg=el('p',{class:'hint',role:'status',style:'margin-top:8px'});
+var demo=el('p',{class:'notice',style:'margin:10px 0 0'});
+function showDemo(){demo.textContent='Prototype: no real message is sent yet. Your demo code is '+VER.code+'.'}
+showDemo();
+var inp=el('input',{type:'text',id:'v-code',inputmode:'numeric',maxlength:'6',autocomplete:'one-time-code','aria-label':'6-digit code',placeholder:'6-digit code'});
+inp.addEventListener('input',function(){var d=inp.value.replace(/\D/g,'');if(d!==inp.value)inp.value=d});
+var form=el('form',{class:'stack'},inp,el('button',{class:'btn',type:'submit',text:'Verify'}),
+el('button',{type:'button',class:'btn ghost',text:'Send a new code',on:{click:function(){newCode();inp.value='';msg.textContent='A new code was sent.';showDemo()}}}));
+form.addEventListener('submit',function(e){e.preventDefault();
+if(!VER||Date.now()>VER.exp){msg.textContent='That code expired. Send a new one.';return}
+if(VER.tries>=5){msg.textContent='Too many tries. Send a new code.';return}
+if(inp.value===VER.code){S.profile.verified=true;VER=null;var ok=save();toast(ok?'Account verified':'Verified, but this view cannot save it');renderProfile();return}
+VER.tries++;msg.textContent='That code does not match. '+(5-VER.tries)+' '+(5-VER.tries===1?'try':'tries')+' left.';inp.select()});
+return el('section',{class:'card'},el('h3',{text:'Verify your '+contactWord(c)}),
+el('p',{class:'tx',text:'We sent a 6-digit code to '+maskContact(c)+'. It expires in 10 minutes.'}),form,msg,demo,
+el('button',{type:'button',class:'btn ghost',style:'margin-top:10px',text:'Wrong '+contactWord(c)+'? Edit profile',on:{click:function(){profEdit=true;renderProfile()}}}))}
+function renderProfileView(){
+var v=document.getElementById('v-profile');v.textContent='';
+var P=S.profile||{};
+var flag=savedFlag;savedFlag=0;
+if(flag===2)v.appendChild(el('p',{class:'notice',role:'status',text:'This view cannot keep your profile after you leave it. Open your live site in a normal browser tab to save it.'}));
+if(acctStep()==='verify')v.appendChild(verifyCard());
+var stamped=GYMS.filter(function(g){return S.stamps[g.id]});
+var joined=Object.keys(S.joined).length;
+var av=avatarEl(P.avatar,104);av.classList.add('ring');
+var card=el('div',{class:'card pcard'},bannerEl(P.banner),
+el('div',{class:'pbody'},
+el('div',{class:'phead'},av,el('div',{class:'pname'},el('h2',{text:P.name||'Climber'}),P.username?el('p',{class:'hint',text:'@'+P.username+(P.verified?' \u00b7 Verified':'')}):null,P.home?el('p',{class:'hint',text:'Home gym: '+placeOf(P.home).n}):null)),
+el('div',{class:'meta'},P.style?el('span',{class:'tag',text:P.style}):null,P.grade?el('span',{class:'tag',text:'Typical grade '+P.grade}):null),
+P.bio?el('p',{class:'bio',text:P.bio}):el('p',{class:'bio hint',text:'No bio yet. Add one so other climbers know what you are into.'}),
+el('button',{type:'button',class:'btn ghost',text:'Edit profile',on:{click:function(){profEdit=true;renderProfile()}}})));
+v.appendChild(card);
+function stat(n,l){return el('div',{class:'stat'},el('b',{text:String(n)}),el('span',{text:l}))}
+v.appendChild(el('div',{class:'stats'},stat(stamped.length+'/'+GYMS.length,'Gyms stamped'),stat(S.posts.length,'Sessions posted'),stat(joined,'Sessions joined')));
+var stc=el('section',{class:'card'},el('h3',{text:'Passport stamps'}));
+if(stamped.length){var mg=el('div',{class:'minis'});stamped.forEach(function(g){mg.appendChild(stampSvg(g,S.stamps[g.id],GYMS.indexOf(g)))});stc.appendChild(mg)}
+else stc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No stamps yet. Visit a gym and stamp your passport.'}));
+v.appendChild(stc);
+var pc=el('section',{class:'card'},el('h3',{text:'Your sessions'}));
+if(S.posts.length){S.posts.slice().sort(function(a,b){return a.date<b.date?-1:1}).forEach(function(p){pc.appendChild(el('div',{class:'prow'},el('span',{text:placeOf(p.place).n}),el('span',{class:'hint',text:fmt(p.date)+(p.grades?' \u00b7 '+p.grades:'')+' \u00b7 '+visLabel(p.visibility)})))})}
+else pc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'Nothing posted yet. Head to the Partner board to find a climbing partner.'}));
+v.appendChild(pc)}
 function renderProfile(){
+if(S.profile&&!profEdit){renderProfileView();return}
 var v=document.getElementById('v-profile');v.textContent='';
 var P=S.profile||{};
 var n=Object.keys(S.stamps).length;
@@ -230,7 +396,31 @@ el('p',{class:'hint',text:'Your photo stays on this device for now.'}),file)));
 f.appendChild(el('p',{class:'full hint',text:'Or pick an avatar:'}));
 f.appendChild(gal);
 drawAv();
-f.appendChild(el('label',{},document.createTextNode('First name'),el('input',{type:'text',id:'p-name',maxlength:'20',value:P.name||''})));
+var bn=P.banner||null;
+var bprev=el('div',{class:'full bnprev'});
+var bfile=el('input',{type:'file',accept:'image/*',class:'sr','aria-label':'Upload a banner image'});
+function drawBn(){bprev.textContent='';bprev.appendChild(bannerEl(bn))}
+bfile.addEventListener('change',function(){readBanner(bfile.files[0],function(d){bn={type:'photo',data:d};drawBn()});bfile.value=''});
+f.appendChild(el('p',{class:'full',style:'margin:6px 0 0;font-weight:600',text:'Profile banner'}));
+f.appendChild(bprev);
+f.appendChild(el('div',{class:'full avbtns'},
+el('button',{type:'button',class:'btn',text:'Upload banner',on:{click:function(){bfile.click()}}}),
+el('button',{type:'button',class:'btn ghost',text:'Use automatic banner',on:{click:function(){bn=null;drawBn()}}}),
+el('p',{class:'hint',text:'Wide photos work best. Your banner stays on this device for now.'}),bfile));
+drawBn();
+f.appendChild(el('label',{},document.createTextNode('First name (required to post)'),el('input',{type:'text',id:'p-name',maxlength:'20',required:'',value:P.name||''})));
+var uin=el('input',{type:'text',id:'p-user',maxlength:'20',required:'',autocomplete:'off',autocapitalize:'none',spellcheck:'false',placeholder:'for example chalk_queen',value:P.username||''});
+var uh=el('span',{class:'hint',text:'Your username is how friends find you. It must be unique. Letters, numbers, and underscores.'});
+uin.addEventListener('input',function(){var lv=uin.value.toLowerCase().replace(/\s/g,'');if(lv!==uin.value)uin.value=lv;uh.textContent=lv?userCheck(lv,P.username).msg:'Choose a username.'});
+f.appendChild(el('label',{class:'full'},document.createTextNode('Username (unique, required to post)'),uin,uh));
+var C=P.contact||{type:'email',value:''};
+var ctype=el('select',{id:'p-ctype'});[['email','Email'],['phone','Phone number']].forEach(function(o){var op=el('option',{value:o[0],text:o[1]});if(C.type===o[0])op.selected=true;ctype.appendChild(op)});
+var cin=el('input',{type:C.type==='phone'?'tel':'email',id:'p-contact',required:'',autocomplete:'off',spellcheck:'false',maxlength:'40',placeholder:C.type==='phone'?'404 555 0123':'you@example.com',value:C.value||''});
+ctype.addEventListener('change',function(){var ph=ctype.value==='phone';cin.type=ph?'tel':'email';cin.placeholder=ph?'404 555 0123':'you@example.com'});
+f.appendChild(el('label',{},document.createTextNode('Verify with'),ctype));
+f.appendChild(el('label',{},document.createTextNode('Email or phone number'),cin));
+var ch=el('p',{class:'full hint',text:'Private. It is used to verify your account and is never shown to other climbers.'});
+f.appendChild(ch);
 var home=el('select',{id:'p-home'});
 home.appendChild(el('option',{value:'',text:'Choose a gym'}));
 GYMS.forEach(function(g){var o=el('option',{value:g.id,text:g.n});if(P.home===g.id)o.selected=true;home.appendChild(o)});
@@ -240,18 +430,170 @@ var style=el('select',{id:'p-style'});
 f.appendChild(el('label',{},document.createTextNode('Favorite style'),style));
 f.appendChild(el('label',{},document.createTextNode('Typical grade'),el('input',{type:'text',id:'p-grade',maxlength:'16',placeholder:'V3 or 5.10',value:P.grade||''})));
 f.appendChild(el('label',{class:'full'},document.createTextNode('About you'),el('textarea',{id:'p-bio',maxlength:'200',placeholder:'How long have you climbed? What are you hoping to find?',text:P.bio||''})));
-f.appendChild(el('div',{class:'full savebar'},el('button',{class:'btn',type:'submit',text:'Save profile'}),wasSaved?el('span',{class:'hint',role:'status',text:wasSaved===1?'Saved on this device':'This view blocks saving. Open your live site in a normal browser tab to save.'}):null));
+f.appendChild(el('div',{class:'full savebar'},el('button',{class:'btn',type:'submit',text:'Save profile'}),S.profile?el('button',{type:'button',class:'btn ghost',text:'Cancel',on:{click:function(){profEdit=false;renderProfile()}}}):null,wasSaved?el('span',{class:'hint',role:'status',text:wasSaved===1?'Saved on this device':'This view blocks saving. Open your live site in a normal browser tab to save.'}):null));
 f.addEventListener('submit',function(e){e.preventDefault();
-S.profile={name:document.getElementById('p-name').value.trim(),home:home.value,style:style.value,grade:document.getElementById('p-grade').value.trim(),bio:document.getElementById('p-bio').value.trim(),avatar:av};
-var ok=save();savedFlag=ok?1:2;renderProfile();toast(ok?'Profile saved':'Could not save in this view')});
+var uname=document.getElementById('p-user').value.trim().toLowerCase(),uc=userCheck(uname,P.username);
+if(!uc.ok){uh.textContent=uc.msg;document.getElementById('p-user').focus();toast('Fix the username to save');return}
+var cc=checkContact(ctype.value,cin.value);
+if(!cc.ok){ch.textContent=cc.msg;cin.focus();toast('Fix the '+contactWord({type:ctype.value})+' to save');return}
+var oc=P.contact,changed=!oc||oc.type!==ctype.value||oc.value!==cc.value;
+if(changed)VER=null;
+S.profile={name:document.getElementById('p-name').value.trim(),username:uname,contact:{type:ctype.value,value:cc.value},verified:changed?false:!!P.verified,home:home.value,style:style.value,grade:document.getElementById('p-grade').value.trim(),bio:document.getElementById('p-bio').value.trim(),avatar:av,banner:bn};
+var ok=save();savedFlag=ok?1:2;profEdit=false;renderProfile();toast(ok?'Profile saved':'Could not save in this view')});
 v.appendChild(f);
 v.appendChild(el('p',{class:'sub',text:'Passport: '+n+' of '+GYMS.length+' gyms stamped.'}))}
+var SAMPLE_PROFILES={
+maya_climbs:{name:'Maya',home:'gt',style:'Bouldering',grade:'V4',bio:'Boulder rat and Boat Rock regular. Always up for a spotting swap.',av:'boulder',ang:135,st:{gt:'2026-09-14','wall-crawler':'2026-10-02'}},
+devon_sends:{name:'Devon',home:'crg-atl',style:'Top-rope and lead',grade:'5.11',bio:'Weeknight lead climber looking for a steady belay partner.',av:'carabiner',ang:60,st:{'crg-atl':'2026-10-21',kennesaw:'2026-10-28',escalade:'2026-11-05'}},
+priya_v4:{name:'Priya',home:'overlook',style:'Bouldering',grade:'V5',bio:'Weekend day trips to Rocktown. Carpool seats usually open.',av:'sunrise',ang:200,st:{overlook:'2026-08-30','atl-rocks':'2026-09-18',gt:'2026-10-09','wall-crawler':'2026-11-01'}},
+atl_boulderer:{name:'Jordan',home:'wall-crawler',style:'Bouldering',grade:'V3',bio:'Intown gym regular. Open to meeting new climbers.',av:'jug',ang:110,st:{'wall-crawler':'2026-10-12','atl-rocks':'2026-10-26'}},
+rocktown_rae:{name:'Rae',home:'gsu',style:'Bouldering',grade:'V6',bio:'Outdoors first. Gym when it rains.',av:'pine',ang:20,st:{gsu:'2026-09-03'}},
+chalk_and_coffee:{name:'Chris',home:'escalade',style:'All of it',grade:'5.10 / V3',bio:'Early morning sessions, coffee after.',av:'chalk',ang:160,st:{escalade:'2026-09-22',kennesaw:'2026-10-15','crg-atl':'2026-11-10'}}};
+var viewUser=null;
+function avById(id){for(var i=0;i<AV.length;i++)if(AV[i].id===id)return{o:AV[i],i:i};return null}
+function userAvatar(u,size){var PR=SAMPLE_PROFILES[u.u],a=PR&&S.friends&&S.friends[u.u]?avById(PR.av):null;return a?iconAvatar(a.o,a.i,size):anonAvatar(u.u,size)}
+function openUser(u){viewUser=u.u;renderFriends();window.scrollTo(0,0)}
+function renderUserProfile(v){
+var u=SAMPLE_USERS.filter(function(x){return x.u===viewUser})[0];
+if(!u){viewUser=null;renderFriends();return}
+var PR=SAMPLE_PROFILES[u.u]||{},isF=!!S.friends[u.u];
+v.appendChild(el('button',{type:'button',class:'btn ghost',style:'margin-bottom:12px',text:'← Friends',on:{click:function(){viewUser=null;renderFriends()}}}));
+if(!isF){
+var av0=anonAvatar(u.u,104);av0.classList.add('ring');
+v.appendChild(el('div',{class:'card pcard'},bannerEl(null),el('div',{class:'pbody'},
+el('div',{class:'phead'},av0,el('div',{class:'pname'},el('h2',{text:'@'+u.u}),el('p',{class:'hint',text:u.a}))))));
+v.appendChild(el('p',{class:'notice',text:'Full profiles are visible to friends only. Once @'+u.u+' accepts your request, you can see their name, photo, home gym, and stamps.'}));
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Connect'}),friendRow(u)));return}
+var ban=el('div',{class:'banner',style:'background:linear-gradient('+(PR.ang||135)+'deg,var(--clay),var(--stamp))'});
+var a=avById(PR.av),av=a?iconAvatar(a.o,a.i,104):anonAvatar(u.u,104);av.classList.add('ring');
+v.appendChild(el('div',{class:'card pcard'},ban,el('div',{class:'pbody'},
+el('div',{class:'phead'},av,el('div',{class:'pname'},el('h2',{text:PR.name||'Climber'}),el('p',{class:'hint',text:'@'+u.u+' · Verified'}),PR.home?el('p',{class:'hint',text:'Home gym: '+placeOf(PR.home).n}):null)),
+el('div',{class:'meta'},PR.style?el('span',{class:'tag',text:PR.style}):null,PR.grade?el('span',{class:'tag',text:'Typical grade '+PR.grade}):null),
+PR.bio?el('p',{class:'bio',text:PR.bio}):null)));
+var gyms=GYMS.filter(function(g){return PR.st&&PR.st[g.id]});
+var posts=SEED.filter(function(x){return x.by===PR.name});
+function stat(n,l){return el('div',{class:'stat'},el('b',{text:String(n)}),el('span',{text:l}))}
+v.appendChild(el('div',{class:'stats'},stat(gyms.length+'/'+GYMS.length,'Gyms stamped'),stat(posts.length,'Sessions posted'),stat(PR.grade||'-','Typical grade')));
+var stc=el('section',{class:'card'},el('h3',{text:'Passport stamps'}));
+if(gyms.length){var mg=el('div',{class:'minis'});gyms.forEach(function(g){mg.appendChild(stampSvg(g,PR.st[g.id],GYMS.indexOf(g)))});stc.appendChild(mg)}
+else stc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No stamps yet.'}));
+v.appendChild(stc);
+var pc=el('section',{class:'card'},el('h3',{text:'Sessions'}));
+if(posts.length)posts.forEach(function(x){pc.appendChild(el('div',{class:'prow'},el('span',{text:placeOf(x.place).n}),el('span',{class:'hint',text:fmt(x.date)+(x.grades?' · '+x.grades:'')})))});
+else pc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'Nothing posted yet.'}));
+v.appendChild(pc);
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Connection'}),friendRow(u)));
+v.appendChild(el('p',{class:'hint',text:'Sample profile. Real friends’ profiles will show what they choose to share.'}))}
+var ACCEPTERS=['maya_climbs','devon_sends','atl_boulderer','rocktown_rae','chalk_and_coffee'];
+function resolveSent(quiet){
+S.sent=S.sent||{};S.friends=S.friends||{};var ch=false,now=Date.now();
+Object.keys(S.sent).forEach(function(u){if(ACCEPTERS.indexOf(u)>=0&&now-S.sent[u]>=6000){delete S.sent[u];S.friends[u]=1;ch=true;toast('@'+u+' accepted your friend request')}});
+if(ch){save();if(!quiet&&!document.getElementById('v-friends').hidden)renderFriends()}}
+function acceptReq(u){S.reqIn=S.reqIn||{};S.friends=S.friends||{};delete S.reqIn[u];S.friends[u]=1;save();renderFriends();toast('You and @'+u+' are now friends')}
+function friendRow(u){
+S.friends=S.friends||{};S.sent=S.sent||{};S.reqIn=S.reqIn||{};
+var btn;
+if(S.friends[u.u])btn=confirmBtn('Friends','Tap again to remove',function(){delete S.friends[u.u];save();renderFriends();toast('Removed @'+u.u)});
+else if(S.sent[u.u])btn=confirmBtn('Requested','Tap again to cancel',function(){delete S.sent[u.u];save();renderFriends();toast('Request canceled')});
+else if(S.reqIn[u.u])btn=el('button',{type:'button',class:'btn',text:'Accept',on:{click:function(){acceptReq(u.u)}}});
+else btn=el('button',{type:'button',class:'btn',text:'Add friend',on:{click:function(){S.sent[u.u]=Date.now();save();renderFriends();toast('Friend request sent to @'+u.u);setTimeout(function(){resolveSent()},6200)}}});
+var PRr=SAMPLE_PROFILES[u.u];
+return el('div',{class:'frow'},el('button',{type:'button',class:'linkrow','aria-label':'View profile of @'+u.u,on:{click:function(){openUser(u)}}},userAvatar(u,44),el('div',{class:'who'},el('b',{text:'@'+u.u}),el('span',{class:'hint',text:(S.friends[u.u]&&PRr?PRr.name+' \u00b7 ':'')+u.a}))),btn)}
+function requestRow(u){
+return el('div',{class:'frow'},el('button',{type:'button',class:'linkrow','aria-label':'View profile of @'+u.u,on:{click:function(){openUser(u)}}},anonAvatar(u.u,44),el('div',{class:'who'},el('b',{text:'@'+u.u}),el('span',{class:'hint',text:'wants to be your friend'}))),
+el('div',{class:'stack',style:'margin:0;flex:none'},
+el('button',{type:'button',class:'btn',text:'Accept',on:{click:function(){acceptReq(u.u)}}}),
+el('button',{type:'button',class:'btn ghost',text:'Decline',on:{click:function(){delete S.reqIn[u.u];save();renderFriends();toast('Request declined')}}})))}
+function renderFriends(){
+var v=document.getElementById('v-friends');v.textContent='';
+v.appendChild(el('h2',{text:'Friends'}));
+if(!hasAcct()){
+var g=gateInfo('Friends are for climbers with an account.');
+v.appendChild(el('section',{class:'card'},el('p',{class:'tx',text:g.text}),
+el('button',{type:'button',class:'btn',text:g.label,on:{click:function(){profEdit=g.edit;tab('profile')}}})));return}
+S.friends=S.friends||{};S.sent=S.sent||{};S.reqIn=S.reqIn||{};
+if(viewUser){renderUserProfile(v);return}
+if(!S.seededReq){S.reqIn={rocktown_rae:1,chalk_and_coffee:1};S.seededReq=1;save()}
+resolveSent(true);
+var res=el('div');
+var inp=el('input',{type:'text',id:'fr-q',class:'fq',maxlength:'21',autocomplete:'off',autocapitalize:'none',spellcheck:'false',placeholder:'Search by username','aria-label':'Search climbers by username',value:friendQ});
+function drawRes(){
+res.textContent='';
+var q=friendQ.trim().toLowerCase().replace(/^@/,'');
+if(q.length<2){res.appendChild(el('p',{class:'hint',text:'Type at least 2 letters of a username.'}));return}
+var m=SAMPLE_USERS.filter(function(u){return u.u.indexOf(q)>=0});
+if(!m.length){res.appendChild(el('p',{class:'hint',text:'No climbers found for “'+q+'”. Check the spelling of the username.'}));return}
+m.forEach(function(u){res.appendChild(friendRow(u))})}
+inp.addEventListener('input',function(){friendQ=inp.value;drawRes()});
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Find climbers'}),
+el('p',{class:'hint',style:'margin:4px 0 0',text:'You are @'+S.profile.username+'. A request becomes a friendship only when the other climber accepts it. Search shows sample climbers for now, and they respond on their own.'}),inp,res));
+drawRes();
+var inc=SAMPLE_USERS.filter(function(u){return S.reqIn[u.u]}),snt=SAMPLE_USERS.filter(function(u){return S.sent[u.u]});
+var rc=el('section',{class:'card'},el('h3',{text:'Friend requests ('+inc.length+')'}));
+inc.forEach(function(u){rc.appendChild(requestRow(u))});
+if(snt.length){rc.appendChild(el('p',{class:'hint',style:'margin-top:12px',text:'Waiting for them to accept:'}));snt.forEach(function(u){rc.appendChild(friendRow(u))})}
+if(!inc.length&&!snt.length)rc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No pending requests.'}));
+v.appendChild(rc);
+var mine=SAMPLE_USERS.filter(function(u){return S.friends[u.u]});
+var lc=el('section',{class:'card'},el('h3',{text:'Your friends ('+mine.length+')'}));
+if(mine.length)mine.forEach(function(u){lc.appendChild(friendRow(u))});
+else lc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No friends yet. Search for a username above to send a request.'}));
+v.appendChild(lc)}
+function confirmBtn(label,sure,act){
+var b=el('button',{type:'button',class:'btn ghost',text:label}),t;
+b.addEventListener('click',function(){
+if(b.className.indexOf('danger')<0){b.className='btn danger';b.textContent=sure;t=setTimeout(function(){b.className='btn ghost';b.textContent=label},4000)}
+else{clearTimeout(t);act()}});
+return b}
+function renderSettings(){
+var v=document.getElementById('v-settings');v.textContent='';
+var st=S.settings||{};
+v.appendChild(el('h2',{text:'Settings'}));
+var cur=st.theme||'clay',grid=el('div',{class:'themes'});
+THEMES.forEach(function(t){
+var sw=el('div',{class:'sw'});t.c.forEach(function(c){sw.appendChild(el('i',{style:'background:'+c}))});
+grid.appendChild(el('button',{type:'button',class:'theme','aria-pressed':String(cur===t.id),on:{click:function(){
+S.settings=Object.assign(S.settings||{},{theme:t.id});applyTheme(t.id);var ok=save();renderSettings();toast(ok?'Theme changed':'Theme changed, but this view cannot save it')}}},
+el('span',{text:t.n}),sw,el('span',{class:'hint',text:cur===t.id?'Selected':'Tap to use'})))});
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Color theme'}),el('p',{class:'tx',text:'Pick the look you like. It applies to the whole app.'}),grid));
+var dv=el('select',{id:'s-vis'});
+dv.appendChild(el('option',{value:'public',text:'Public (nickname only)'}));
+dv.appendChild(el('option',{value:'named',text:'Public with my name'}));
+dv.appendChild(el('option',{value:'friends',text:'Friends only'}));
+dv.value=st.defaultVis||'public';
+var dh=el('span',{class:'hint',text:'You can still change it on each post.'});
+function dhSet(){dh.textContent=dv.value==='named'?'You can still change it on each post. Posts with your real name are visible to every climber, so check each one before you post.':'You can still change it on each post.'}
+dhSet();
+dv.addEventListener('change',function(){dhSet();S.settings=Object.assign(S.settings||{},{defaultVis:dv.value});toast(save()?'Setting saved':'Could not save in this view')});
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Posting'}),
+el('label',{style:'margin-top:10px'},document.createTextNode('Default visibility for new posts'),dv,dh)));
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Account'}),
+el('p',{class:'tx',text:S.profile&&S.profile.contact?(contactWord(S.profile.contact)==='email'?'Email':'Phone')+': '+maskContact(S.profile.contact)+(S.profile.verified?' (verified)':' (not verified yet)'):'No account yet. Create your profile to get started.'})));
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Privacy'}),
+el('p',{class:'tx',text:'Public posts show a nickname and a generic avatar. Your name, photo, and home gym stay hidden.'}),
+el('p',{class:'tx',text:'Public posts with your name show your first name and photo to every climber.'}),
+el('p',{class:'tx',text:'Friends-only posts show your name and photo to your friends.'}),
+el('p',{class:'tx',text:'Your email or phone number is private. Other climbers never see it.'}),
+el('p',{class:'tx',text:'Nothing leaves this device yet. Your profile, stamps, and posts are saved in this browser only.'})));
+var clr=el('div',{class:'stack'},
+confirmBtn('Clear my stamps','Tap again to confirm',function(){S.stamps={};save();renderSettings();toast('Stamps cleared')}),
+confirmBtn('Clear my posts','Tap again to confirm',function(){S.posts=[];save();renderSettings();toast('Posts cleared')}),
+confirmBtn('Delete everything','Tap again to delete',function(){
+try{localStorage.removeItem('cragpass')}catch(x){}
+S={stamps:{},posts:[],joined:{},uid:'d'+Math.random().toString(36).slice(2,10)};profEdit=false;filter='all';fresh=null;friendQ='';VER=null;viewUser=null;applyTheme('clay');renderSettings();toast('Everything on this device was deleted')}));
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Your data on this device'}),
+el('p',{class:'tx',text:'Clear parts of what the app has saved here, or delete it all, including your profile and settings.'}),clr));
+v.appendChild(el('section',{class:'card'},el('h3',{text:'About'}),
+el('p',{class:'tx',text:'Crag Pass is a prototype for climbers in Atlanta, Georgia.'}),
+el('p',{class:'tx hint',text:'Gym details come from public listings and need checking before launch.'})))}
 function tab(which){
-['pass','board','profile'].forEach(function(k){
+viewUser=null;
+if(which!=='profile')profEdit=false;
+['pass','board','profile','friends','settings'].forEach(function(k){
 document.getElementById('v-'+k).hidden=(k!==which);
-document.getElementById('t-'+k).setAttribute(k==='profile'?'aria-current':'aria-selected',String(k===which))});
-if(which==='pass')renderPass();else if(which==='board')renderBoard();else renderProfile()}
-['pass','board','profile'].forEach(function(k){document.getElementById('t-'+k).onclick=function(){tab(k)}});
+document.getElementById('t-'+k).setAttribute(k==='profile'||k==='friends'||k==='settings'?'aria-current':'aria-selected',String(k===which))});
+if(which==='pass')renderPass();else if(which==='board')renderBoard();else if(which==='profile')renderProfile();else if(which==='friends')renderFriends();else renderSettings()}
+['pass','board','profile','friends','settings'].forEach(function(k){document.getElementById('t-'+k).onclick=function(){tab(k)}});
 tab('board');
 </script>
 </body>
