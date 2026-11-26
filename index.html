@@ -67,9 +67,11 @@ textarea{min-height:64px;resize:vertical}
   <div class="tabs" role="tablist">
     <button role="tab" id="t-pass" aria-selected="true">Passport</button>
     <button role="tab" id="t-board" aria-selected="false">Partner board</button>
+    <button role="tab" id="t-profile" aria-selected="false">Profile</button>
   </div>
   <section id="v-pass"></section>
   <section id="v-board" hidden></section>
+  <section id="v-profile" hidden></section>
   <p class="note">Prototype with sample data. Gym details come from public listings and need checking before launch. Your stamps and posts are saved in this browser only, so nobody else sees them yet.</p>
 </main>
 <div class="toast" id="toast" role="status"></div>
@@ -156,13 +158,34 @@ p.note?el('p',{style:'margin:0',text:p.note}):null,
 el('footer',{},el('span',{class:'meta',text:'Posted by '+p.by}),
 el('button',{class:'btn'+(on?' on':''),text:on?'You\u2019re in':'I\u2019m in','aria-pressed':String(on),on:{click:function(){if(S.joined[p.id])delete S.joined[p.id];else{S.joined[p.id]=1;toast('Messaging comes in the next version')}save();renderBoard()}}}))))})}
 function tab(which){
-var p=which==='pass';
-document.getElementById('v-pass').hidden=!p;document.getElementById('v-board').hidden=p;
-document.getElementById('t-pass').setAttribute('aria-selected',String(p));
-document.getElementById('t-board').setAttribute('aria-selected',String(!p));
-if(p)renderPass();else renderBoard()}
-document.getElementById('t-pass').onclick=function(){tab('pass')};
-document.getElementById('t-board').onclick=function(){tab('board')};
+function renderProfile(){
+var v=document.getElementById('v-profile');v.textContent='';
+var P=S.profile||{};
+var n=Object.keys(S.stamps).length;
+var f=el('form',{class:'card'});
+f.appendChild(el('h2',{class:'full',text:'Your profile'}));
+f.appendChild(el('label',{},document.createTextNode('First name'),el('input',{type:'text',id:'p-name',maxlength:'20',value:P.name||''})));
+var home=el('select',{id:'p-home'});
+home.appendChild(el('option',{value:'',text:'Choose a gym'}));
+GYMS.forEach(function(g){var o=el('option',{value:g.id,text:g.n});if(P.home===g.id)o.selected=true;home.appendChild(o)});
+f.appendChild(el('label',{},document.createTextNode('Home gym'),home));
+var style=el('select',{id:'p-style'});
+['Bouldering','Top-rope and lead','Trad','All of it'].forEach(function(s){var o=el('option',{value:s,text:s});if(P.style===s)o.selected=true;style.appendChild(o)});
+f.appendChild(el('label',{},document.createTextNode('Favorite style'),style));
+f.appendChild(el('label',{},document.createTextNode('Typical grade'),el('input',{type:'text',id:'p-grade',maxlength:'16',placeholder:'V3 or 5.10',value:P.grade||''})));
+f.appendChild(el('label',{class:'full'},document.createTextNode('About you'),el('textarea',{id:'p-bio',maxlength:'200',placeholder:'How long have you climbed? What are you hoping to find?',text:P.bio||''})));
+f.appendChild(el('div',{class:'full'},el('button',{class:'btn',type:'submit',text:'Save profile'})));
+f.addEventListener('submit',function(e){e.preventDefault();
+S.profile={name:document.getElementById('p-name').value.trim(),home:home.value,style:style.value,grade:document.getElementById('p-grade').value.trim(),bio:document.getElementById('p-bio').value.trim()};
+save();renderProfile();toast('Profile saved')});
+v.appendChild(f);
+v.appendChild(el('p',{class:'sub',text:'Passport: '+n+' of '+GYMS.length+' gyms stamped.'}))}
+function tab(which){
+['pass','board','profile'].forEach(function(k){
+document.getElementById('v-'+k).hidden=(k!==which);
+document.getElementById('t-'+k).setAttribute('aria-selected',String(k===which))});
+if(which==='pass')renderPass();else if(which==='board')renderBoard();else renderProfile()}
+['pass','board','profile'].forEach(function(k){document.getElementById('t-'+k).onclick=function(){tab(k)}});
 renderPass();
 </script>
 </body>
