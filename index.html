@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Crag Pass: Atlanta prototype</title>
+<title>Crag Pass: prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rokkitt:wght@600;700;800&family=Zilla+Slab:wght@400;500;600&display=swap" rel="stylesheet">
-<script>try{var q=JSON.parse(localStorage.getItem("cragpass")||"{}");if(q.settings&&q.settings.theme)document.documentElement.setAttribute("data-theme",q.settings.theme)}catch(e){}</script>
+<script>try{var q=JSON.parse(localStorage.getItem("cragpass")||"{}");document.documentElement.setAttribute("data-theme",(q.settings&&q.settings.theme)||"alpine")}catch(e){}</script>
 <style>
 :root{--bg:#89271e;--surface:#6f1f18;--ink:#fcc679;--muted:#89e3c6;--line:#d73525;--clay:#f8b16f;--stamp:#89e3c6;--pine:#89e3c6;--onpine:#6f1f18;--ban:linear-gradient(135deg,var(--clay),var(--stamp));color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 :root[data-theme="sandstone"]{--bg:#1c1610;--surface:#2b2118;--ink:#cca20c;--muted:#bf9a63;--line:#8e6339;--clay:#cca20c;--stamp:#bf9a63;--pine:#bf9a63;--onpine:#1c1610;--ban:linear-gradient(135deg,#862810,#cca20c);color-scheme:dark}
+:root[data-theme="alpine"]{--bg:#fff9db;--surface:#e4eeed;--ink:#14485f;--muted:#2a7f9f;--line:#78cde2;--clay:#ed823e;--stamp:#ed823e;--pine:#2b96c0;--onpine:#0d2a38;--ban:linear-gradient(135deg,#78cde2,#ed823e);color-scheme:light}
 :root[data-theme="rosewood"]{--bg:#fdfdfd;--surface:#e2c1b7;--ink:#354643;--muted:#7c444f;--line:#b4848e;--clay:#7c444f;--stamp:#7c444f;--pine:#354643;--onpine:#fdfdfd;--ban:linear-gradient(135deg,#b4848e,#354643);color-scheme:light}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
@@ -28,11 +29,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .prog b{font:700 56px/1 Rokkitt,Rockwell,serif;color:var(--clay)}
 .bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:20px}
 .bar i{display:block;height:100%;background:var(--pine);transition:width .4s}
+.sec{display:flex;gap:8px;margin:6px 0 14px}.sec button{flex:1;font:700 19px "Zilla Slab",Georgia,serif;padding:9px 10px;border-radius:6px;border:2px solid var(--line);background:none;color:var(--ink);cursor:pointer}.sec button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.gym.click{cursor:pointer}.gym .more{font-size:15px;color:var(--clay);font-weight:600;margin:-4px 0 8px}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;padding:16px;z-index:50}.mo .box{background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:8px;max-width:460px;width:100%;max-height:88vh;overflow:auto;padding:18px}
+.mo h2{margin:0 0 2px}.mo .meta{color:var(--muted);margin:0 0 12px}.mo dl{margin:0 0 14px}.mo dt{font-weight:700;color:var(--clay);margin-top:10px}.mo dd{margin:2px 0 0}.mo .acts{display:flex;gap:8px;flex-wrap:wrap}.mo a.btn{text-decoration:none;display:inline-block}.mo a.btn.ghost{padding:7px 14px;font-size:17px}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
 .gym{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;gap:12px;align-items:center;min-height:128px}
 .gym .txt{flex:1;min-width:0}
 .gym p{margin:2px 0 10px;color:var(--muted);font-size:16px}
-.slot{width:92px;height:92px;flex:none;border:2px dashed var(--line);border-radius:50%;display:grid;place-items:center}
+.slot{width:152px;height:82px;flex:none;border:2px dashed var(--line);border-radius:10px;display:grid;place-items:center}
 .slot svg{width:100%;height:100%}
 .fresh svg{animation:thump .35s cubic-bezier(.2,1.4,.4,1)}
 @keyframes thump{from{transform:scale(1.7);opacity:0}to{opacity:1}}
@@ -94,14 +99,14 @@ label .hint{font-weight:400}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px;text-align:center;display:grid;gap:2px}
 .stat b{font:700 32px/1 Rokkitt,Rockwell,serif;color:var(--clay)}
 .stat span{font-size:15px;color:var(--muted)}
-.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px;margin-top:10px}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(124px,1fr));gap:10px;margin-top:10px}
 .minis svg{width:100%;height:auto;display:block}
 .notice{background:var(--surface);border:1px solid var(--clay);border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:16px}
 .prow{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
 .btn.danger{background:var(--clay);border-color:var(--clay);color:var(--bg)}
 .tx{margin:8px 0;font-size:17px}
 .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-#v-settings>h2,#v-friends>h2{margin-bottom:12px}
+#v-settings>h2,#v-friends>h2,#v-messages>h2{margin-bottom:12px}
 .themes{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:10px}
 .theme{display:grid;gap:8px;text-align:left;background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font:600 18px "Zilla Slab",Georgia,serif}
 .theme[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
@@ -115,6 +120,17 @@ label .hint{font-weight:400}
 .linkrow{display:flex;align-items:center;gap:12px;flex:1;min-width:0;background:none;border:0;padding:0;margin:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
 .linkrow:hover b{text-decoration:underline}
 .linkrow:focus-visible{outline:3px solid var(--stamp);outline-offset:3px;border-radius:6px}
+.bottombar button{position:relative}
+.badge{position:absolute;top:4px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--clay);color:var(--bg);font:700 12px/18px "Zilla Slab",serif;text-align:center}
+.msgs{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.bub{max-width:80%;padding:8px 12px;border-radius:14px;font-size:17px;line-height:1.35;overflow-wrap:anywhere}
+.bub.me{align-self:flex-end;background:var(--ink);color:var(--bg);border-bottom-right-radius:4px}
+.bub.them{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.bub time{display:block;font-size:12px;opacity:.75;margin-top:2px}
+.composer{display:flex;gap:8px;align-items:center}
+.composer input{flex:1;min-width:0}
+.prev{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--clay);margin-left:6px;vertical-align:middle}
 @media (max-width:520px){form.card{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.fresh svg{animation:none}.bar i{transition:none}}
 </style>
@@ -131,34 +147,66 @@ label .hint{font-weight:400}
   <section id="v-pass" hidden></section>
   <section id="v-profile" hidden></section>
   <section id="v-friends" hidden></section>
+  <section id="v-messages" hidden></section>
   <section id="v-settings" hidden></section>
   <p class="note">Prototype with sample data. Gym details come from public listings and need checking before launch. Your stamps and posts are saved in this browser only, so nobody else sees them yet.</p>
 </main>
 <nav class="bottombar" aria-label="Account">
   <button id="t-profile" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span>Profile</span></button>
   <button id="t-friends" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.8 3-6 6.5-6s6.5 2.2 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14c2.8 0 4.5 1.8 4.5 4.5"/></svg><span>Friends</span></button>
+  <button id="t-messages" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg><span>Messages</span><span class="badge" id="msg-badge" hidden></span></button>
   <button id="t-settings" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h8M20 6h-2M4 12h2M14 12h6M4 18h10M20 18h-2"/><circle cx="15" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="17" cy="18" r="2.2"/></svg><span>Settings</span></button>
 </nav>
 <div class="toast" id="toast" role="status"></div>
 <script>
 var GYMS=[
-{id:'crg-atl',n:'Central Rock Gym Atlanta',a:'3701 Presidential Pkwy (formerly Stone Summit)',c:'CRG'},
-{id:'wall-crawler',n:'Wall Crawler Rock Club',a:'1522 DeKalb Ave NE',c:'WCR'},
-{id:'atl-rocks',n:'Atlanta Rocks! Intown',a:'Atlanta',c:'ATR'},
-{id:'overlook',n:'The Overlook Bouldering + Fitness',a:'Atlanta',c:'OVL'},
-{id:'gt',n:'Georgia Tech Climbing Gym',a:'750 Ferst Dr NW',c:'GT'},
-{id:'gsu',n:'Georgia State Climbing Wall',a:'Student Recreation Center, Piedmont Ave',c:'GSU'},
-{id:'kennesaw',n:'Stone Summit Kennesaw',a:'Kennesaw',c:'SSK'},
-{id:'escalade',n:'Escalade Indoor Rock Climbing',a:'Kennesaw',c:'ESC'}];
-var CRAGS=[{id:'boat-rock',n:'Boat Rock',a:'Fulton County bouldering'},{id:'rocktown',n:'Rocktown',a:'Northwest Georgia bouldering'}];
+{id:'crg-atl',n:'Central Rock Gym Atlanta',a:'3701 Presidential Pkwy, Atlanta, GA',c:'CRG',s:'ATLANTA',st:'GA'},
+{id:'crg-mid',n:'Central Rock Gym Midtown',a:'Atlanta, GA',c:'CRM',s:'ATLANTA',st:'GA'},
+{id:'crg-dor',n:'Central Rock Gym Atlanta Bouldering',a:'Doraville, GA',c:'CRB',s:'DORAVILLE',st:'GA'},
+{id:'overlook',n:'The Overlook Bouldering + Fitness',a:'1030 White St SW, Atlanta, GA',c:'OVL',s:'ATLANTA',st:'GA'},
+{id:'gt',n:'Georgia Tech Climbing Gym',a:'750 Ferst Dr NW, Atlanta, GA',c:'GT',s:'ATLANTA',st:'GA'},
+{id:'kennesaw',n:'Central Rock Gym Kennesaw',a:'2801 George Busbee Pkwy, Kennesaw, GA',c:'CRK',s:'KENNESAW',st:'GA'},
+{id:'adrenaline',n:'Adrenaline Climbing',a:'Suwanee, GA',c:'ADR',s:'SUWANEE',st:'GA'},
+{id:'active-athens',n:'Active Climbing Athens',a:'Athens, GA',c:'ACA',s:'ATHENS',st:'GA'},
+{id:'active-gro',n:'Active Climbing Grovetown',a:'Grovetown (Augusta area), GA',c:'ACG',s:'GROVETOWN',st:'GA'},
+{id:'hp-bham',n:'High Point Climbing & Fitness Birmingham',a:'4766 US-280, Birmingham, AL',c:'HPB',s:'BIRMINGHAM',st:'AL'},
+{id:'crux',n:'Crux Climbing',a:'1790 Harper Rd, Northport, AL',c:'CRX',s:'NORTHPORT',st:'AL'},
+{id:'hp-chat-dt',n:'High Point Climbing & Fitness Chattanooga Downtown',a:'Chattanooga, TN',c:'HPD',s:'CHATTANOOGA',st:'TN'},
+{id:'hp-chat-rs',n:'High Point Climbing & Fitness Riverside',a:'Chattanooga, TN',c:'HPR',s:'CHATTANOOGA',st:'TN'},
+{id:'hp-cle',n:'High Point Climbing & Fitness Cleveland',a:'Cleveland, TN',c:'HPC',s:'CLEVELAND',st:'TN'},
+{id:'hp-mem',n:'High Point Climbing & Fitness Memphis',a:'Memphis, TN',c:'HPM',s:'MEMPHIS',st:'TN'}];
+var CRAGS=[
+{id:"boat-rock",n:"Boat Rock",st:"GA",a:"South Fulton, GA",t:"Bouldering",rock:"Granite",d:"Compact boulder field just west of Atlanta, the closest outdoor bouldering to the city. Bring pads and spotters; most problems need both.",acc:"Owned by the Southeastern Climbers Coalition. Do not park in the nearby neighborhood and do not camp.",mp:"https://www.mountainproject.com/area/106080767/boat-rock",c:"BR",s:"GEORGIA"},
+{id:"rocktown",n:"Rocktown",st:"GA",a:"Lafayette, GA",t:"Bouldering",rock:"Sandstone",d:"Classic northwest Georgia bouldering among large sandstone blocks, about a mile hike from the parking lot.",acc:"Inside the Crockford-Pigeon Mountain WMA: needs a license or Georgia lands pass, and climbing is not allowed in hunting seasons.",mp:"https://www.mountainproject.com/area/106036120/rocktown",c:"RKT",s:"GEORGIA"},
+{id:"lost-wall",n:"Lost Wall",st:"GA",a:"Pigeon Mountain, GA",t:"Trad, top rope, some sport",rock:"Sandstone",d:"Cliff climbing on Pigeon Mountain with mostly trad and top-rope lines and a few sport routes.",acc:"Same WMA as Rocktown, so check the license and hunting-season rules.",mp:"https://www.mountainproject.com/area/105900335/lost-wall",c:"LW",s:"GEORGIA"},
+{id:"yonah",n:"Mount Yonah",st:"GA",a:"White County, GA",t:"Trad, sport, top rope, bouldering",rock:"Granite / gneiss",d:"Big granite-style mountain in the Chattahoochee-Oconee National Forest with single-pitch sport and multi-pitch trad.",acc:"No fee reported. Some areas are up to an hour uphill; some rappels need two ropes.",mp:"https://www.mountainproject.com/area/105941346/mount-yonah",c:"YNH",s:"GEORGIA"},
+{id:"currahee",n:"Currahee Mountain",st:"GA",a:"Toccoa, GA",t:"Sport, trad, top rope, bouldering",rock:"Granite / gneiss",d:"Mountain crag northeast of Atlanta with a mix of sport, trad, top rope and bouldering.",acc:"The access road is poorly maintained dirt.",mp:"https://www.mountainproject.com/area/105901443/currahee-mountain",c:"CUR",s:"GEORGIA"},
+{id:"shaking-rock",n:"Shaking Rock",st:"GA",a:"Lexington, GA",t:"Bouldering",rock:"Granite",d:"Small park with granite boulders southeast of Athens.",acc:"No access notes found; check with the county park before going.",mp:"https://www.mountainproject.com/area/107088730/shaking-rock",c:"SHK",s:"GEORGIA"},
+{id:"allenbrook",n:"Allenbrook / Vickery Creek",st:"GA",a:"Roswell, GA",t:"Top rope, trad, bouldering",rock:"Not confirmed",d:"Small crag in the Chattahoochee River National Recreation Area, handy for a quick session near Atlanta.",acc:"No permit reported. Do not leave valuables in your car.",mp:"https://www.mountainproject.com/area/106086339/allenbrook",c:"ALB",s:"GEORGIA"},
+{id:"palisades",n:"The Palisades",st:"GA",a:"Sandy Springs, GA",t:"Bouldering, top rope, trad",rock:"Quartzite",d:"Short-hike cliffs and boulders along the Chattahoochee River in Sandy Springs.",acc:"Part of the Chattahoochee River NRA; short hike in.",mp:"https://www.mountainproject.com/area/107134105/the-palisades",c:"PAL",s:"GEORGIA"},
+{id:"indian-seats",n:"Indian Seats (Sawnee Mountain)",st:"GA",a:"Cumming, GA",t:"Top rope",rock:"Not confirmed",d:"Top-rope cliff on Sawnee Mountain, reached by trail.",acc:"$3 climbing pass from the Sawnee Mountain Visitor Center. Bring a helmet.",mp:"https://www.mountainproject.com/area/109644104/indian-seats",c:"ISE",s:"GEORGIA"},
+{id:"zahnd",n:"Zahnd Natural Area",st:"GA",a:"North Georgia, GA",t:"Bouldering, trad",rock:"Sandstone (likely)",d:"Wild area in northwest Georgia with boulders and some longer trad lines.",acc:"Georgia DNR wildlife management area; check the rules before going.",mp:"https://www.mountainproject.com/area/111754617/zahnd-natural-area",c:"ZHN",s:"GEORGIA"},
+{id:"super-secret",n:"Super Secret Boulders",st:"GA",a:"North Georgia, GA",t:"Bouldering",rock:"Not confirmed",d:"Small set of boulders in north Georgia.",acc:"Verify access before going.",mp:"",c:"SSB",s:"GEORGIA"},
+{id:"hp40",n:"Horse Pens 40",st:"AL",a:"Near Steele, AL",t:"Bouldering",rock:"Sandstone",d:"One of the best-known boulder fields in the Southeast, with hundreds of problems among big sandstone formations.",acc:"Private park with an entry fee; check current fees and hours.",mp:"https://www.mountainproject.com/area/106094862/horse-pens-40",c:"HP40",s:"ALABAMA"},
+{id:"lrc",n:"Little River Canyon",st:"AL",a:"Fort Payne area, AL",t:"Sport, trad, bouldering",rock:"Sandstone",d:"Sandstone canyon walls in a national preserve, with sport, trad and bouldering.",acc:"National Park Service land; check the climbing rules.",mp:"https://www.mountainproject.com/area/112396116/little-river-canyon",c:"LRC",s:"ALABAMA"},
+{id:"crv",n:"Cherokee Rock Village (Sand Rock)",st:"AL",a:"Leesburg, AL",t:"Sport, trad, top rope, bouldering",rock:"Sandstone",d:"Sandstone rock village with every style of climbing and an easy walk from the parking lot. Camping nearby.",acc:"Short walk from parking; camping and facilities nearby.",mp:"https://www.mountainproject.com/area/105905184/sand-rock",c:"CRV",s:"ALABAMA"},
+{id:"hospital",n:"Hospital Boulders",st:"AL",a:"Gadsden area, AL",t:"Bouldering",rock:"Sandstone",d:"Large bouldering area on Sand Mountain, protected by the Access Fund.",acc:"Verify current access and parking.",mp:"https://www.mountainproject.com/area/107890555/hospital-boulders",c:"HOS",s:"ALABAMA"},
+{id:"bishop",n:"Bishop Mountain",st:"AL",a:"Alabama, AL",t:"Not confirmed",rock:"Not confirmed",d:"Listed on Mountain Project with about 130 climbs. Details not confirmed yet.",acc:"Verify access before going.",mp:"",c:"BSH",s:"ALABAMA"},
+{id:"citadel",n:"The Citadel",st:"AL",a:"Alabama, AL",t:"Not confirmed",rock:"Not confirmed",d:"Listed on Mountain Project with about 90 climbs. Details not confirmed yet.",acc:"Verify access before going.",mp:"",c:"CIT",s:"ALABAMA"},
+{id:"cherokee-bluffs",n:"Cherokee Bluffs",st:"AL",a:"Alabama, AL",t:"Not confirmed",rock:"Not confirmed",d:"Listed on Mountain Project with about 30 climbs. Details not confirmed yet.",acc:"Verify access before going.",mp:"https://www.mountainproject.com/area/106833394/cherokee-bluffs",c:"CHB",s:"ALABAMA"},
+{id:"obed",n:"Obed & Clear Creek",st:"TN",a:"Wartburg / Lancing area, TN",t:"Trad, sport, bouldering",rock:"Sandstone",d:"Tennessee's biggest climbing area, with hundreds of routes on sandstone cliffs in a national wild and scenic river.",acc:"National Park Service land; check the NPS climbing rules.",mp:"https://www.mountainproject.com/area/105891970/obed-clear-creek",c:"OBD",s:"TENNESSEE"},
+{id:"stone-fort",n:"Stone Fort",st:"TN",a:"Chattanooga area, TN",t:"Bouldering",rock:"Sandstone",d:"Huge sandstone boulder field with more than 500 problems.",acc:"Verify access and any fees before going.",mp:"https://www.mountainproject.com/area/106031921",c:"STF",s:"TENNESSEE"},
+{id:"tn-wall",n:"The Tennessee Wall",st:"TN",a:"Chattanooga area, TN",t:"Trad, sport",rock:"Sandstone",d:"Classic Chattanooga cliff with long lines of trad and sport routes.",acc:"Verify current access before going.",mp:"https://www.mountainproject.com/area/105851828/the-tennessee-wall",c:"TNW",s:"TENNESSEE"},
+{id:"foster-falls",n:"Foster Falls",st:"TN",a:"South Cumberland (Sequatchie area), TN",t:"Sport, trad",rock:"Sandstone",d:"Sandstone cliffs by a waterfall in South Cumberland State Park, popular for both sport and trad.",acc:"State park; check fees and permits.",mp:"https://www.mountainproject.com/area/105883248/foster-falls",c:"FFL",s:"TENNESSEE"}];
 var SEED=[
 {id:'s1',place:'boat-rock',date:'2026-11-28',grades:'V2\u2013V5',note:'Bringing two pads. Looking for a spotter and someone who knows the Yellow Wall area.',by:'Maya',sample:1},
 {id:'s2',place:'crg-atl',date:'2026-11-25',grades:'5.9\u20135.11',note:'Weeknight top-rope and lead. Need a belay partner after 6.',by:'Devon',sample:1},
 {id:'s3',place:'rocktown',date:'2026-11-29',grades:'V3\u2013V6',note:'Day trip from Atlanta. Two carpool seats open.',by:'Priya',sample:1}];
 var S={stamps:{},posts:[],joined:{}},filter='all',fresh=null;
 try{var raw=localStorage.getItem('cragpass');if(raw)S=Object.assign(S,JSON.parse(raw))}catch(x){}
-var THEMES=[{id:'clay',n:'Red Clay',c:['#89271e','#fcc679','#f8b16f','#89e3c6','#d73525']},{id:'rosewood',n:'Rosewood',c:['#b4848e','#354643','#e2c1b7','#fdfdfd','#7c444f']},{id:'sandstone',n:'Sandstone',c:['#cca20c','#bf9a63','#8e6339','#862810','#1c1610']}];
-function applyTheme(t){document.documentElement.setAttribute('data-theme',THEMES.some(function(x){return x.id===t})?t:'clay')}
+try{if(S.profile&&S.profile.home&&!GYMS.some(function(g){return g.id===S.profile.home}))S.profile.home=''}catch(x){}
+var THEMES=[{id:'clay',n:'Red Clay',c:['#89271e','#fcc679','#f8b16f','#89e3c6','#d73525']},{id:'rosewood',n:'Rosewood',c:['#b4848e','#354643','#e2c1b7','#fdfdfd','#7c444f']},{id:'sandstone',n:'Sandstone',c:['#cca20c','#bf9a63','#8e6339','#862810','#1c1610']},{id:'alpine',n:'Alpine Glow',c:['#fff9db','#ed823e','#2b96c0','#e4eeed','#78cde2']}];
+function applyTheme(t){document.documentElement.setAttribute('data-theme',THEMES.some(function(x){return x.id===t})?t:'alpine')}
 applyTheme(S.settings&&S.settings.theme);
 if(!S.uid)S.uid='d'+Math.random().toString(36).slice(2,10);
 function save(){try{localStorage.setItem('cragpass',JSON.stringify(S));return localStorage.getItem('cragpass')!==null}catch(x){return false}}
@@ -170,28 +218,94 @@ function placeOf(id){return GYMS.concat(CRAGS).filter(function(g){return g.id===
 function isOut(id){return CRAGS.some(function(c){return c.id===id})}
 function toast(m){var t=document.getElementById('toast');t.textContent=m;t.className='toast show';clearTimeout(toast.h);toast.h=setTimeout(function(){t.className='toast'},2200)}
 var NS='http://www.w3.org/2000/svg';
+var stampN=0,MON=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+function stampLines(name){var t=name.toUpperCase();if(t.length<=24)return[t];var w=t.split(' '),best=1,bd=1e9;for(var k=1;k<w.length;k++){var d=Math.abs(w.slice(0,k).join(' ').length-w.slice(k).join(' ').length);if(d<bd){bd=d;best=k}}return[w.slice(0,best).join(' '),w.slice(best).join(' ')]}
 function stampSvg(g,date,i){
-var s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 100 100');s.setAttribute('role','img');s.setAttribute('aria-label','Stamp for '+g.n);
-s.style.transform='rotate('+((i*37)%24-12)+'deg)';s.style.color='var(--stamp)';
-function add(t,a,txt){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,a[k]);if(txt)n.textContent=txt;s.appendChild(n)}
-add('circle',{cx:50,cy:50,r:46,fill:'none',stroke:'currentColor','stroke-width':3});
-add('circle',{cx:50,cy:50,r:39,fill:'none',stroke:'currentColor','stroke-width':1.2});
-add('text',{x:50,y:34,'text-anchor':'middle',fill:'currentColor','font-size':10,'font-family':'Rokkitt,serif','font-weight':700},'ATLANTA');
-add('text',{x:50,y:60,'text-anchor':'middle',fill:'currentColor','font-size':g.c.length>3?24:30,'font-family':'Rokkitt,serif','font-weight':700},g.c);
-add('text',{x:50,y:76,'text-anchor':'middle',fill:'currentColor','font-size':9,'font-family':'Rokkitt,serif','font-weight':600},new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}));
+var id='st'+(stampN++),isC=CRAGS.some(function(x){return x.id===g.id});
+var s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 260 140');s.setAttribute('role','img');s.setAttribute('aria-label','Entry stamp for '+g.n);
+s.style.transform='rotate('+((i*37)%9-4)+'deg)';s.style.color='var(--stamp)';
+function mk(t,a,txt,par){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,a[k]);if(txt)n.textContent=txt;(par||s).appendChild(n);return n}
+var defs=mk('defs',{}),f=mk('filter',{id:id,x:'-5%',y:'-5%',width:'110%',height:'110%'},null,defs);
+mk('feTurbulence',{type:'fractalNoise',baseFrequency:'0.8',numOctaves:'2',seed:String(i%9+1),result:'n'},null,f);
+mk('feDisplacementMap',{in:'SourceGraphic',in2:'n',scale:'2'},null,f);
+var G=mk('g',{filter:'url(#'+id+')',fill:'currentColor',stroke:'currentColor',opacity:'0.94'});
+function add(t,a,txt){return mk(t,a,txt,G)}
+add('rect',{x:8,y:10,width:244,height:120,rx:8,fill:'none','stroke-width':3.5});
+add('rect',{x:15,y:17,width:230,height:106,rx:4,fill:'none','stroke-width':1.2});
+var FS='Zilla Slab,serif',FR='Rokkitt,serif';
+add('text',{x:130,y:38,'text-anchor':'middle','font-family':FS,'font-weight':700,'font-size':10,'letter-spacing':4,stroke:'none'},isC?'CRAG PASS · OUTDOORS':'CRAG PASS · ENTRY');
+add('line',{x1:30,y1:45,x2:230,y2:45,'stroke-width':1.2});
+var L=stampLines(g.n);
+if(L.length===1){var long=L[0].length>12;var a1={x:130,y:70,'text-anchor':'middle','font-family':FS,'font-weight':700,'font-size':long?16:20,stroke:'none'};if(long){a1.textLength=Math.min(200,L[0].length*10.5);a1.lengthAdjust='spacingAndGlyphs'}else a1['letter-spacing']=5;add('text',a1,L[0])}
+else{[0,1].forEach(function(k){add('text',{x:130,y:61+k*15,'text-anchor':'middle','font-family':FS,'font-weight':700,'font-size':13,textLength:Math.min(200,L[k].length*8.2),lengthAdjust:'spacingAndGlyphs',stroke:'none'},L[k])})}
+var d=new Date(date+'T12:00:00');
+add('text',{x:140,y:100,'text-anchor':'middle','font-family':FR,'font-weight':800,'font-size':26,'letter-spacing':2,stroke:'none'},d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear());
+add('polygon',{points:'22,92 36,82 36,88 50,88 50,96 36,96 36,102',stroke:'none'});
+add('text',{x:232,y:119,'text-anchor':'end','font-family':FR,'font-weight':800,'font-size':12,'letter-spacing':1.5,stroke:'none'},g.c+' · '+(g.st||''));
 return s}
+var passF='All';
+var PICKS={"rocktown":[["El Classico","V0","Boulder","https://www.mountainproject.com/route/109614076/el-classico"],["Ripple","V2","Boulder","https://www.mountainproject.com/route/107950314/ripple"],["Makin' Waves","V2","Boulder","https://www.mountainproject.com/route/108011471/makin-waves"],["The Scoop","V3","Boulder","https://www.mountainproject.com/route/106036764/the-scoop"],["El Bano","V3","Boulder","https://www.mountainproject.com/route/107793133/el-bano"],["Gritstone Arete","V3","Boulder","https://www.mountainproject.com/route/109614067/gritstone-arete"],["Soap on a Rope","V5-","Boulder","https://www.mountainproject.com/route/106036163/soap-on-a-rope"],["Standard's Variation","V5","Boulder","https://www.mountainproject.com/route/107478537/standards-variation"],["Blue","V6","Boulder","https://www.mountainproject.com/route/107045917/blue"],["Lab Rats","V6","Boulder","https://www.mountainproject.com/route/107950360/lab-rats"],["Standard Deviation","V6","Boulder","https://www.mountainproject.com/route/108054353/standard-deviation"],["The Guillotine","V6","Boulder","https://www.mountainproject.com/route/108398747/the-guillotine"],["Sherman Photo Roof","V7","Boulder","https://www.mountainproject.com/route/106338721/sherman-photo-roof"]],"boat-rock":[["Lost Digits","V3","Boulder","https://www.mountainproject.com/route/106080994/lost-digits"],["Waves in Motion","V3","Boulder","https://www.mountainproject.com/route/106081338/waves-in-motion"],["Yellow Wall Arete","V4","Boulder","https://www.mountainproject.com/route/106080999/yellow-wall-arete"],["Keeper of the Boat","V4","Boulder","https://www.mountainproject.com/route/106321103/keeper-of-the-boat"],["Firewoman","V4","Boulder","https://www.mountainproject.com/route/106081019/firewoman"],["The Surgeon","V5","Boulder","https://www.mountainproject.com/route/106084860/the-surgeon"],["Paint Can Arete","V5","Boulder","https://www.mountainproject.com/route/106084892/paint-can-arete"],["Bob and Craig's Slab","V6","Boulder","https://www.mountainproject.com/route/106086816/bob-and-craigs-slab"],["Dishes Left","V6","Boulder","https://www.mountainproject.com/route/106617992/dishes-left"],["Craig's Rail and Mantle","V6","Boulder","https://www.mountainproject.com/route/107472553/craigs-rail-and-mantle"],["Plastic Soldiers","V8","Boulder","https://www.mountainproject.com/route/119557861/plastic-soldiers"]],"yonah":[["Dihedral","5.6","Trad","https://www.mountainproject.com/route/105942566/dihedral"],["Two Man Party Orange","5.6","Trad/Sport/TR","https://www.mountainproject.com/route/106160576/two-man-party-orange"],["Lucy in the Sky with Diamonds","5.10a","Trad","https://www.mountainproject.com/route/105942550/lucy-in-the-sky-with-diamonds"],["Stannard's Crack","5.10-","Trad","https://www.mountainproject.com/route/106073106/stannards-crack"],["Face to Face","5.10b","Sport","https://www.mountainproject.com/route/106718492/face-to-face"],["Return of The Jodi","5.10","Sport/TR","https://www.mountainproject.com/route/106109970/return-of-the-jodi"],["Diving Board","5.10","Trad","https://www.mountainproject.com/route/111698607/diving-board"],["Next Time","5.11a","Trad/TR","https://www.mountainproject.com/route/110071293/next-time"],["Temporary Permanence","5.13a","Sport","https://www.mountainproject.com/route/118030714/temporary-permanence"],["Red Sparrow","V4","Boulder","https://www.mountainproject.com/route/107472128/red-sparrow"],["Leviathan","V6","Boulder","https://www.mountainproject.com/route/107376123/leviathan"],["Deadlift","V6","Boulder","https://www.mountainproject.com/route/107425271/deadlift"],["Seamstress","V9","Boulder","https://www.mountainproject.com/route/109967126/seamstress"],["Bowl of Wrath","V9","Boulder","https://www.mountainproject.com/route/118588415/bowl-of-wrath"]],"shaking-rock":[["Granite Capital","V0","Boulder","https://www.mountainproject.com/route/121801209/granite-capital"],["Wigglerock","V1+","Boulder","https://www.mountainproject.com/route/107089522/wigglerock"],["Perl","V2","Boulder","https://www.mountainproject.com/route/117685142/perl"],["Hairy Hold Sit","V2+","Boulder","https://www.mountainproject.com/route/108413980/hairy-hold-sit"],["Snake Eyes","V3","Boulder","https://www.mountainproject.com/route/107088835/snake-eyes"],["The Mantle","V3","Boulder","https://www.mountainproject.com/route/107089646/the-mantle"],["The Brain","V4","Boulder","https://www.mountainproject.com/route/107089607/the-brain"],["Central Station Stand","V4","Boulder","https://www.mountainproject.com/route/108414001/central-station-stand"],["The Spoon","V5","Boulder","https://www.mountainproject.com/route/107088743/the-spoon"],["Vitruvian Man","V5","Boulder","https://www.mountainproject.com/route/107088932/vitruvian-man"],["Bottlenose","V5","Boulder","https://www.mountainproject.com/route/124847363/bottlenose"]],"allenbrook":[["The Groove","5.8","Trad/TR",""],["Rumors Right","5.10b","TR",""],["Rumors Roof","5.10b","Trad/TR",""],["Afterburner","5.11a","Trad/TR",""]],"palisades":[["Our Warm-up","VB","Boulder","https://www.mountainproject.com/route/116786868/our-warm-up"],["Surfs Up Traverse","V1","Boulder","https://www.mountainproject.com/route/115683640/surfs-up-traverse"],["Mango Jelly","V1-2","Boulder","https://www.mountainproject.com/route/116222239/mango-jelly"],["Pocket Knife","V2","Boulder","https://www.mountainproject.com/route/116214546/pocket-knife"],["Hammer","V2","Boulder","https://www.mountainproject.com/route/116786849/hammer"],["Boogie Board","V3","Boulder","https://www.mountainproject.com/route/115683764/boogie-board"],["Surf's Up Direct","V3","Boulder","https://www.mountainproject.com/route/117791870/surfs-up-direct"],["Marietta Maiden","V4","Boulder","https://www.mountainproject.com/route/115682718/marietta-maiden"],["Denominator","V4","Boulder","https://www.mountainproject.com/route/118184531/denominator"],["Spotlight (Midway)","V8","Boulder","https://www.mountainproject.com/route/107134125/spotlight-midway"],["Haven","5.10a","TR","https://www.mountainproject.com/route/107137509/haven"]],"zahnd":[["Cheesecake Arete","V0","Boulder",""],["Classic Warmup","V1","Boulder",""],["Spring In Your Step","V3","Boulder",""],["The Turret","V4","Boulder",""],["Backstage Girl","V5","Boulder",""],["Razors Edge","V6","Boulder",""],["Magic Carpet Ride","V6","Boulder",""],["Rhino","V7","Boulder",""],["Harvest Moon","V8","Boulder",""],["Jedi","V9","Boulder",""]],"hp40":[["Merlin","V1","Boulder",""],["Night Fever","V1+","Boulder",""],["Genesis","V3","Boulder",""],["Earth Wind & Fire","V3","Boulder",""],["Grooverider","V3","Boulder",""],["Red Arrow","V4-","Boulder",""],["Mortal Kombat","V4","Boulder",""],["Centerpede","V4","Boulder",""],["Hammerhead","V5","Boulder",""],["Popeye","V5","Boulder",""],["Redneck","V6","Boulder",""]],"lrc":[["Ruhama","5.11a","Sport","https://www.mountainproject.com/route/112787113/ruhama"],["Bitless","5.11a","Sport","https://www.mountainproject.com/route/112818742/bitless"],["Rocktoberfest","5.11b","Sport","https://www.mountainproject.com/route/112790076/rocktoberfest"],["Rotten Pillar","5.11d","Sport","https://www.mountainproject.com/route/112844621/rotten-pillar"],["Fight Club","5.11d","Sport","https://www.mountainproject.com/route/116088893/fight-club"],["Toomsuba","5.12a","Sport","https://www.mountainproject.com/route/112797204/toomsuba"],["Lion","5.12b","Sport","https://www.mountainproject.com/route/112813371/lion"],["Majosha","5.12c","Sport","https://www.mountainproject.com/route/112908683/majosha"],["Long Doug","5.12d","Sport","https://www.mountainproject.com/route/113849862/long-doug"],["Word","5.13a","Sport","https://www.mountainproject.com/route/112396178/word"],["Hooligans","5.13b","Sport","https://www.mountainproject.com/route/112396163/hooligans"]],"crv":[["Tummy Touch","V3+","Boulder",""],["Knob Wall","5.6","Trad",""],["That Eight","5.8","Sport",""],["Comfortably Numb","5.9","Trad/TR",""],["Oyster","5.10a","Sport",""],["Gravy Train","5.10a","Trad",""],["Too Pumped Chump","5.10b","Sport",""],["Misty","5.10b","Sport",""],["Cinco de Mayo","5.10c","Sport",""],["Pigs in Zen","5.10d","Sport",""],["Dreamscape","5.11c","Sport",""],["Rave","5.12a","Sport",""],["Vicious","5.12c","Sport",""]],"hospital":[["Slippery When Wet","V2","Boulder","https://www.mountainproject.com/route/111392053/slippery-when-wet"],["Hero","V3","Boulder","https://www.mountainproject.com/route/111393170/hero"],["Anastomosis","V3","Boulder","https://www.mountainproject.com/route/122151389/anastomosis"],["Arc Minute","V3-4","Boulder","https://www.mountainproject.com/route/111391928/arc-minute"],["Don't Look Back","V4","Boulder","https://www.mountainproject.com/route/111391910/dont-look-back"],["Before Peace","V4","Boulder","https://www.mountainproject.com/route/111392239/before-peace"],["Mystified","V5","Boulder","https://www.mountainproject.com/route/108659750/mystified"],["Vertical Cartography","V5","Boulder","https://www.mountainproject.com/route/111391937/vertical-cartography"],["No Parking on the Dance Floor","V6","Boulder","https://www.mountainproject.com/route/111392698/no-parking-on-the-dance-floor"],["Scarecrow","V6","Boulder","https://www.mountainproject.com/route/111393354/scarecrow"],["Pendulum","V8","Boulder","https://www.mountainproject.com/route/111391803/pendulum"],["Desperado","V10-","Boulder","https://www.mountainproject.com/route/111391944/desperado"]],"cherokee-bluffs":[["Give Me A Second","V3","Boulder","https://www.mountainproject.com/route/114030083/give-me-a-second"],["The Crescent","V4+","Boulder","https://www.mountainproject.com/route/114008284/the-crescent"],["A Good Life","5.8","Sport","https://www.mountainproject.com/route/106833521/a-good-life"],["Stolen","5.8","Sport/TR","https://www.mountainproject.com/route/114041852/stolen"],["Sticky Fingers","5.9-","Sport/TR","https://www.mountainproject.com/route/112291851/sticky-fingers"],["Kid Icarus","5.9+","Sport/TR","https://www.mountainproject.com/route/114007871/kid-icarus"],["Lichen Arete","5.10a","Sport","https://www.mountainproject.com/route/112291779/lichen-arete"],["Mud Puppy","5.10b","Sport","https://www.mountainproject.com/route/106833505/mud-puppy"],["Ka-Dunk A-Dunk","5.10c","Sport","https://www.mountainproject.com/route/106833499/ka-dunk-a-dunk"],["Angie's Crack","5.10+","Trad/TR","https://www.mountainproject.com/route/112291812/angies-crack"],["Slim Jim","5.11c","Sport","https://www.mountainproject.com/route/106833398/slim-jim"]],"obed":[["Best Seat In The House","5.9","Sport","https://www.mountainproject.com/route/106068973/best-seat-in-the-house"],["Tarantella","5.10a","Sport","https://www.mountainproject.com/route/106099156/tarantella"],["Spawn","5.10b","Sport","https://www.mountainproject.com/route/106111639/spawn"],["Pale Face","5.11a","Sport","https://www.mountainproject.com/route/106099127/pale-face"],["Herbivore","5.11a","Sport","https://www.mountainproject.com/route/106610114/herbivore"],["Lounge Lizard","5.11b","Sport","https://www.mountainproject.com/route/106099182/lounge-lizard"],["Heresy","5.11c","Sport","https://www.mountainproject.com/route/106812897/heresy"],["Tieranny","5.12a","Sport","https://www.mountainproject.com/route/105891980/tieranny"],["Solstice","5.12a","Sport","https://www.mountainproject.com/route/106564957/solstice"],["Barbwire and Lingerie","5.12b","Sport","https://www.mountainproject.com/route/106945503/barbwire-and-lingerie"],["Rage","5.12c","Sport","https://www.mountainproject.com/route/106270396/rage"]],"stone-fort":[["The Rib","V1","Boulder",""],["Mystery Machine","V3","Boulder",""],["Swingers","V3-4","Boulder",""],["Super Mario","V4","Boulder",""],["Dragon Lady","V4","Boulder",""],["Tristar","V4","Boulder",""],["Genghis Khan","V5","Boulder",""],["Sternum","V5","Boulder",""],["The Wave","V6","Boulder",""],["Shotgun","V6","Boulder",""],["Red House","V7","Boulder",""],["Tennessee Thong","V7","Boulder",""]],"tn-wall":[["Prerequisite for Excellence","5.8","Trad",""],["Passages","5.8","Trad",""],["Art","5.8","Trad",""],["Golden Locks","5.9","Trad",""],["In Pursuit of Excellence","5.9+","Trad",""],["Cake Walk","5.10a","Trad",""],["Where Lizards Go to Die","5.10a","Trad",""],["Super Slide","5.10b","Trad",""],["Love Handle","5.10b","Trad/Sport",""],["Finger Lockin' Good","5.10b","Trad",""],["Points O' Contact","5.10c","Trad",""],["Fly with the Falcon","5.11b","Trad",""]],"foster-falls":[["Sweet Surrender","5.8","Sport","https://www.mountainproject.com/route/112293152/sweet-surrender"],["Ruben","5.9","Sport","https://www.mountainproject.com/route/109079486/ruben"],["Holy War","5.9+","Sport","https://www.mountainproject.com/route/108668668/holy-war"],["Something's Always Wrong","5.10d","Sport","https://www.mountainproject.com/route/107301050/somethings-always-wrong"],["Pillsbury","5.11a","Sport","https://www.mountainproject.com/route/106006449/pillsbury"],["Standing Room Only","5.11a","Sport","https://www.mountainproject.com/route/106617956/standing-room-only"],["Finger Puppets","5.11a","Sport","https://www.mountainproject.com/route/106926805/finger-puppets"],["The Acquittal","5.11b","Sport","https://www.mountainproject.com/route/105978799/the-acquittal"],["Greed","5.11d","Sport","https://www.mountainproject.com/route/105946755/greed"],["Satisfaction","5.12a","Sport","https://www.mountainproject.com/route/105978789/satisfaction"],["Thieves","5.12a","Sport","https://www.mountainproject.com/route/107585169/thieves"],["Bottled Up Warrior","5.12b","Sport","https://www.mountainproject.com/route/107132491/bottled-up-warrior"]]};
+function parseLevel(t){t=String(t||'');var o={v:null,y:null},m=t.match(/V\s?(\d+)/i);if(m)o.v=+m[1];var y=t.match(/5\.(\d+)\s*([abcd])?/i);if(y){var n=+y[1],l=y[2]?'abcd'.indexOf(y[2].toLowerCase())*0.25:(n>=10?0.375:0);o.y=n+l}return o}
+function vScore(g){if(g==='VB')return 0;var m=String(g).match(/^V(\d+)(?:-(\d+))?([+-])?$/);if(!m)return null;var n=+m[1];if(m[2])return (n+ +m[2])/2;if(m[3]==='+')return n+0.5;if(m[3]==='-')return n-0.5;return n}
+function yScore(g){var m=String(g).match(/^5\.(\d+)([abcd])?([+-])?$/);if(!m)return null;var n=+m[1],sg=m[3];if(m[2])return n+'abcd'.indexOf(m[2])*0.25;if(n>=10)return n+(sg==='-'?0.1:sg==='+'?0.65:0.375);return n+(sg==='+'?0.5:sg==='-'?-0.5:0)}
+function styleTypes(st){return st==='Bouldering'?['Boulder']:st==='Top-rope and lead'?['Sport','TR']:st==='Trad'?['Trad']:['Boulder','Sport','TR','Trad']}
+function pickFor(crag){
+var P=S.profile;if(!P||!P.grade||!P.style)return{need:'profile'};
+var L=parseLevel(P.grade),types=styleTypes(P.style),list=PICKS[crag.id];
+if(!list)return{need:'data'};
+var best=null,bd=1e9,missing=false;
+list.forEach(function(c){
+var ts=c[2].split('/');if(!ts.some(function(t){return types.indexOf(t)>=0}))return;
+var boulder=c[1].charAt(0)==='V',mine=boulder?L.v:L.y;
+if(mine===null){missing=true;return}
+var sc=boulder?vScore(c[1]):yScore(c[1]);if(sc===null)return;
+var d=Math.abs(sc-mine),win=boulder?1:0.5;
+if(d<bd){bd=d;best={c:c,d:d,ok:d<=win}}});
+if(!best)return{need:missing?'grade':'none'};
+return best}
+function gradeRange(t){var L=parseLevel(t),o=[];if(L.v!==null)o.push('V'+Math.max(0,L.v-1)+'-'+(L.v+1));if(L.y!==null){var n=Math.floor(L.y);o.push('5.'+Math.max(5,n-1)+'-5.'+(n+1))}return o.join(' / ')}
+function closeMo(){var m=document.getElementById('mo');if(m)m.remove();document.removeEventListener('keydown',moKey)}
+function moKey(e){if(e.key==='Escape')closeMo()}
+function openCrag(g){
+closeMo();
+var linkEl=g.mp?el('a',{class:'btn',href:g.mp,target:'_blank',rel:'noopener noreferrer',text:'Open on Mountain Project'}):el('span',{class:'hint',text:'No Mountain Project page linked yet.'});
+var mapEl=el('a',{class:'btn ghost',href:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(g.n+' climbing '+g.a),target:'_blank',rel:'noopener noreferrer',text:'Open in Google Maps'});
+var pk=pickFor(g),recEl;
+if(pk.need==='profile')recEl=el('p',{class:'hint',text:'Add your favorite style and typical grade in your profile to see a classic pick for your level.'});
+else if(pk.need==='data')recEl=el('p',{class:'hint',text:'Classic picks for this crag are coming soon.'});
+else if(pk.need==='grade')recEl=el('p',{class:'hint',text:'Your typical grade needs a '+(styleTypes(S.profile.style)[0]==='Boulder'?'V grade (like V3)':'rope grade (like 5.10)')+' to match this style.'});
+else if(pk.need==='none')recEl=el('p',{class:'hint',text:'No classic at this crag matches your style yet.'});
+else{var cl=pk.c;recEl=el('div',{},el('p',{style:'margin:2px 0'},el('b',{text:cl[0]}),document.createTextNode(' \u00b7 '+cl[1]+' \u00b7 '+cl[2].replace(/\//g,', '))),el('p',{class:'hint',style:'margin:0 0 6px',text:pk.ok?'A classic in your range ('+S.profile.style.toLowerCase()+', around '+S.profile.grade+').':'Closest classic to your level here. This crag may be easier or harder than you usually climb.'}),el('a',{class:'btn ghost',href:cl[3]||g.mp||'https://www.mountainproject.com',target:'_blank',rel:'noopener noreferrer',text:cl[3]?'See this climb on Mountain Project':'Find it on Mountain Project'}))}
+var box=el('div',{class:'box',role:'dialog','aria-modal':'true','aria-label':g.n},
+el('h2',{text:g.n}),el('p',{class:'meta',text:g.a}),
+el('dl',{},el('dt',{text:'What it offers'}),el('dd',{text:g.t}),el('dt',{text:'Stone'}),el('dd',{text:g.rock}),el('dt',{text:'About'}),el('dd',{text:g.d}),el('dt',{text:'Access'}),el('dd',{text:g.acc}),el('dt',{text:'Classic pick for you'}),el('dd',{},recEl)),
+el('div',{class:'acts'},linkEl,mapEl,el('button',{class:'btn ghost',text:'Close',on:{click:closeMo}})));
+var mo=el('div',{class:'mo',id:'mo',on:{click:function(e){if(e.target===mo)closeMo()}}},box);
+document.body.appendChild(mo);document.addEventListener('keydown',moKey);
+var cb=box.querySelector('button');if(cb)cb.focus()}
+var passSec='in';
 function renderPass(){
 var v=document.getElementById('v-pass');v.textContent='';
-var n=Object.keys(S.stamps).filter(function(k){return GYMS.some(function(g){return g.id===k})}).length;
-v.appendChild(el('div',{class:'prog'},el('b',{text:n+' of '+GYMS.length}),el('span',{text:'gyms stamped'})));
-var bar=el('div',{class:'bar'},el('i',{style:'width:'+(n/GYMS.length*100)+'%'}));v.appendChild(bar);
+var LIST=passSec==='in'?GYMS:CRAGS,word=passSec==='in'?'gyms':'crags';
+var sec=el('div',{class:'sec'});
+[['out','Outdoor crags'],['in','Indoor gyms']].forEach(function(k){sec.appendChild(el('button',{text:k[1],'aria-pressed':String(passSec===k[0]),on:{click:function(){passSec=k[0];passF='All';renderPass()}}}))});
+v.appendChild(sec);
+var n=Object.keys(S.stamps).filter(function(k){return LIST.some(function(g){return g.id===k})}).length;
+v.appendChild(el('div',{class:'prog'},el('b',{text:n+' of '+LIST.length}),el('span',{text:word+' stamped'})));
+var bar=el('div',{class:'bar'},el('i',{style:'width:'+(n/LIST.length*100)+'%'}));v.appendChild(bar);
+var chips=el('div',{class:'chips'});
+['All','GA','TN','AL'].forEach(function(k){chips.appendChild(el('button',{text:k,'aria-pressed':String(passF===k),on:{click:function(){passF=k;renderPass()}}}))});
+v.appendChild(chips);
 var grid=el('div',{class:'grid'});
-GYMS.forEach(function(g,i){
+LIST.filter(function(g){return passF==='All'||g.st===passF}).forEach(function(g){var i=LIST.indexOf(g);
 var d=S.stamps[g.id];
 var slot=el('div',{class:'slot'+(fresh===g.id?' fresh':'')});if(d){slot.style.borderStyle='solid';slot.style.borderColor='transparent';slot.appendChild(stampSvg(g,d,i))}
-var btn=d?el('button',{class:'btn ghost',text:'Remove stamp',on:{click:function(){delete S.stamps[g.id];fresh=null;save();renderPass()}}})
-:el('button',{class:'btn',text:'Stamp passport',on:{click:function(){S.stamps[g.id]=iso(new Date());fresh=g.id;save();renderPass();toast('Stamped '+g.n)}}});
-grid.appendChild(el('div',{class:'gym'},el('div',{class:'txt'},el('h3',{text:g.n}),el('p',{text:g.a}),btn),slot))});
+var btn=d?el('button',{class:'btn ghost',text:'Remove stamp',on:{click:function(e){e.stopPropagation();delete S.stamps[g.id];fresh=null;save();renderPass()}}})
+:el('button',{class:'btn',text:'Stamp passport',on:{click:function(e){e.stopPropagation();S.stamps[g.id]=iso(new Date());fresh=g.id;save();renderPass();toast('Stamped '+g.n)}}});
+var out=passSec==='out';
+var card=el('div',{class:'gym'+(out?' click':'')},el('div',{class:'txt'},el('h3',{text:g.n}),el('p',{text:g.a}),out?el('p',{class:'more',text:'Tap for details'}):null,btn),slot);
+if(out){card.setAttribute('role','button');card.tabIndex=0;card.addEventListener('click',function(){openCrag(g)});card.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target===card)openCrag(g)})}
+grid.appendChild(card)});
 v.appendChild(grid)}
 var ADJ=['Granite','Alpine','Crimson','Chalky','Steady','Sunny','Mossy','Windy','Rusty','Bold','Quiet','Swift'];
 var NOUN=['Marmot','Falcon','Ibex','Otter','Pika','Heron','Lynx','Badger','Raven','Gecko','Bison','Fox'];
@@ -228,6 +342,9 @@ if(u!==cur&&(RESERVED.indexOf(u)>=0||SAMPLE_USERS.some(function(x){return x.u===
 return{ok:true,msg:'@'+u+' is available.'}}
 function visLabel(v){return v==='friends'?'Friends only':v==='named'?'Public with name':'Public'}
 var VHINT={public:'Public posts hide your name and photo. Other climbers see a nickname.',named:'Every climber will see your first name and photo, along with the gym or crag and the time. Only choose this if you are comfortable with strangers knowing where you will be.',friends:'Only your friends will see this, along with your name and photo. Friends lists arrive with accounts, so for now this just labels your post.'};
+function postSeed(p){return p.sample?'sample-'+p.id:S.uid}
+function isPubPost(p){return p.visibility!=='friends'&&p.visibility!=='named'}
+function authorName(p){return isPubPost(p)?nick(postSeed(p)):p.by}
 function authorRow(p){
 var pub=(p.visibility!=='friends'&&p.visibility!=='named'),mine=!p.sample,seed=p.sample?'sample-'+p.id:S.uid,sub='',name,av;
 if(pub){name=nick(seed);av=anonAvatar(seed,44);if(mine)sub='Your name and photo are hidden on public posts.'}
@@ -245,7 +362,7 @@ sel.appendChild(og1);sel.appendChild(og2);
 f.appendChild(el('h2',{class:'full',text:'Find a partner'}));
 f.appendChild(el('label',{class:'full'},document.createTextNode('Where'),sel));
 f.appendChild(el('label',{},document.createTextNode('Date'),el('input',{type:'date',id:'f-date',required:'',min:iso(new Date())})));
-f.appendChild(el('label',{},document.createTextNode('Grades (optional)'),el('input',{type:'text',id:'f-grades',placeholder:'V2\u2013V5 or 5.9\u20135.11',maxlength:'24'})));
+f.appendChild(el('label',{},document.createTextNode('Grades (optional)'),el('input',{type:'text',id:'f-grades',placeholder:'V2\u2013V5 or 5.9\u20135.11',maxlength:'24',value:gradeRange(S.profile&&S.profile.grade)})));
 f.appendChild(el('label',{class:'full'},document.createTextNode('What are you looking for? (optional)'),el('textarea',{id:'f-note',maxlength:'200',placeholder:'Belay partner, spotter, carpool, anything else'})));
 var vis=el('select',{id:'f-vis'});
 vis.appendChild(el('option',{value:'public',text:'Public (nickname only)'}));
@@ -269,7 +386,7 @@ el('p',{class:'hint',style:'margin-top:10px',text:'Prototype note: this device s
 var chips=el('div',{class:'chips'});
 [['all','All'],['in','Indoor'],['out','Outdoor']].forEach(function(c){chips.appendChild(el('button',{type:'button','aria-pressed':String(filter===c[0]),text:c[1],on:{click:function(){filter=c[0];renderBoard()}}}))});
 v.appendChild(chips);
-var list=SEED.concat(S.posts).filter(function(p){return filter==='all'||(filter==='out')===isOut(p.place)}).sort(function(a,b){return a.date<b.date?-1:1});
+var list=SEED.concat(S.posts).filter(function(p){return filter==='all'||(filter==='out')===isOut(p.place)}).filter(function(p){return !(S.blocked&&S.blocked[postSeed(p)])}).sort(function(a,b){return a.date<b.date?-1:1});
 if(!list.length)v.appendChild(el('p',{class:'empty',text:'No posts here yet. Be the first to post a session.'}));
 list.forEach(function(p){
 var pl=placeOf(p.place),out=isOut(p.place),on=!!S.joined[p.id];
@@ -280,7 +397,8 @@ el('h3',{text:pl.n}),
 el('div',{class:'meta'},el('span',{text:fmt(p.date)}),p.grades?el('span',{text:p.grades}):null,el('span',{class:'tag'+(out?' out':''),text:out?'Outdoor':'Indoor'}),el('span',{class:'tag'+(p.visibility==='friends'?' priv':''),text:visLabel(p.visibility)}),p.sample?el('span',{class:'tag',text:'Sample post'}):null),
 p.note?el('p',{style:'margin:0',text:p.note}):null,
 el('footer',{},
-!p.sample?confirmBtn('Delete post','Tap again to delete',function(){S.posts=S.posts.filter(function(x){return x.id!==p.id});delete S.joined[p.id];save();renderBoard();toast('Post deleted')}):el('button',{class:'btn'+(on?' on':''),text:on?'You\u2019re in':'I\u2019m in','aria-pressed':String(on),on:{click:function(){if(S.joined[p.id])delete S.joined[p.id];else{S.joined[p.id]=1;toast('Messaging comes in the next version')}save();renderBoard()}}}))))})}
+(p.sample&&on)?el('button',{class:'btn',text:'Message',on:{click:function(){openThreadFor(p)}}}):null,
+!p.sample?confirmBtn('Delete post','Tap again to delete',function(){S.posts=S.posts.filter(function(x){return x.id!==p.id});delete S.joined[p.id];save();renderBoard();toast('Post deleted')}):el('button',{class:'btn'+(on?' on':''),text:on?'You\u2019re in':'I\u2019m in','aria-pressed':String(on),on:{click:function(){if(S.joined[p.id])delete S.joined[p.id];else{if(!hasAcct()){toast('Create your account to join a session');window.scrollTo(0,0);return}S.joined[p.id]=1;toast('You’re in. Tap Message to say hi.')}save();renderBoard()}}}))))})}
 var savedFlag=0,profEdit=false;
 var AV=[
 {id:'summit',n:'Summit',d:'<path d="M2 20 9 6l4.5 8 2.5-4L22 20z"/>'},
@@ -343,25 +461,64 @@ VER.tries++;msg.textContent='That code does not match. '+(5-VER.tries)+' '+(5-VE
 return el('section',{class:'card'},el('h3',{text:'Verify your '+contactWord(c)}),
 el('p',{class:'tx',text:'We sent a 6-digit code to '+maskContact(c)+'. It expires in 10 minutes.'}),form,msg,demo,
 el('button',{type:'button',class:'btn ghost',style:'margin-top:10px',text:'Wrong '+contactWord(c)+'? Edit profile',on:{click:function(){profEdit=true;renderProfile()}}}))}
+var viewAs=null;
+function renderViewAs(v,P){
+var isF=viewAs==='friend';
+function setMode(m){viewAs=m;renderProfileView();window.scrollTo(0,0)}
+v.appendChild(el('div',{class:'notice',role:'status'},el('b',{text:'Preview: '}),document.createTextNode('this is what '+(isF?'your friends':'people who are not your friends')+' see.')));
+v.appendChild(el('div',{class:'seg',style:'display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap'},
+el('button',{type:'button',class:'btn'+(isF?' ghost':''),text:'Not a friend',on:{click:function(){setMode('public')}}}),
+el('button',{type:'button',class:'btn'+(isF?'':' ghost'),text:'A friend',on:{click:function(){setMode('friend')}}}),
+el('button',{type:'button',class:'btn ghost',text:'Exit preview',on:{click:function(){setMode(null)}}})));
+var uname=P.username||'you';
+if(!isF){
+var a0=anonAvatar(uname,104);a0.classList.add('ring');
+v.appendChild(el('div',{class:'card pcard'},bannerEl(null),el('div',{class:'pbody'},
+el('div',{class:'phead'},a0,el('div',{class:'pname'},el('h2',{text:'@'+uname}))),
+(P.levelPublic&&(P.style||P.grade))?el('div',{class:'meta'},P.style?el('span',{class:'tag',text:P.style}):null,P.grade?el('span',{class:'tag',text:'Typical grade '+P.grade}):null):null)));
+v.appendChild(el('p',{class:'notice',text:'Full profiles are visible to friends only. Others see your username, plus your style and typical grade only if you turned that on in Edit profile.'}));
+return}
+var av=avatarEl(P.avatar,104);av.classList.add('ring');
+var stamped=GYMS.filter(function(g){return S.stamps[g.id]}),cst=CRAGS.filter(function(g){return S.stamps[g.id]});
+v.appendChild(el('div',{class:'card pcard'},bannerEl(P.banner),el('div',{class:'pbody'},
+el('div',{class:'phead'},av,el('div',{class:'pname'},el('h2',{text:P.name||'Climber'}),el('p',{class:'hint',text:'@'+uname+(P.verified?' · Verified':'')}),P.home?el('p',{class:'hint',text:'Home gym: '+placeOf(P.home).n}):null)),
+el('div',{class:'meta'},P.style?el('span',{class:'tag',text:P.style}):null,P.grade?el('span',{class:'tag',text:'Typical grade '+P.grade}):null),
+P.bio?el('p',{class:'bio',text:P.bio}):null)));
+function stat(n,l){return el('div',{class:'stat'},el('b',{text:String(n)}),el('span',{text:l}))}
+v.appendChild(el('div',{class:'stats',style:'grid-template-columns:repeat(2,1fr)'},stat(cst.length+'/'+CRAGS.length,'Crags stamped'),stat(stamped.length+'/'+GYMS.length,'Gyms stamped')));
+function stampCard(title,list,all){var c=el('section',{class:'card'},el('h3',{text:title}));
+if(list.length){var m=el('div',{class:'minis'});list.forEach(function(g){m.appendChild(stampSvg(g,S.stamps[g.id],all.indexOf(g)))});c.appendChild(m)}
+else c.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No stamps yet.'}));return c}
+v.appendChild(stampCard('Crag stamps',cst,CRAGS));
+v.appendChild(stampCard('Gym stamps',stamped,GYMS));
+v.appendChild(el('p',{class:'hint',text:'Friends see your profile, stamps and style. Your posts follow the visibility you pick on each one.'}))}
 function renderProfileView(){
 var v=document.getElementById('v-profile');v.textContent='';
 var P=S.profile||{};
+if(viewAs){renderViewAs(v,P);return}
 var flag=savedFlag;savedFlag=0;
 if(flag===2)v.appendChild(el('p',{class:'notice',role:'status',text:'This view cannot keep your profile after you leave it. Open your live site in a normal browser tab to save it.'}));
 if(acctStep()==='verify')v.appendChild(verifyCard());
 var stamped=GYMS.filter(function(g){return S.stamps[g.id]});
+var cragsSt=CRAGS.filter(function(g){return S.stamps[g.id]});
 var joined=Object.keys(S.joined).length;
 var av=avatarEl(P.avatar,104);av.classList.add('ring');
 var card=el('div',{class:'card pcard'},bannerEl(P.banner),
 el('div',{class:'pbody'},
 el('div',{class:'phead'},av,el('div',{class:'pname'},el('h2',{text:P.name||'Climber'}),P.username?el('p',{class:'hint',text:'@'+P.username+(P.verified?' \u00b7 Verified':'')}):null,P.home?el('p',{class:'hint',text:'Home gym: '+placeOf(P.home).n}):null)),
 el('div',{class:'meta'},P.style?el('span',{class:'tag',text:P.style}):null,P.grade?el('span',{class:'tag',text:'Typical grade '+P.grade}):null),
+(P.style||P.grade)?el('p',{class:'hint',style:'margin:6px 0 0',text:P.levelPublic?'Style and grade are visible to everyone.':'Style and grade are visible to friends only.'}):null,
 P.bio?el('p',{class:'bio',text:P.bio}):el('p',{class:'bio hint',text:'No bio yet. Add one so other climbers know what you are into.'}),
-el('button',{type:'button',class:'btn ghost',text:'Edit profile',on:{click:function(){profEdit=true;renderProfile()}}})));
+el('div',{style:'display:flex;gap:8px;flex-wrap:wrap'},el('button',{type:'button',class:'btn ghost',text:'Edit profile',on:{click:function(){profEdit=true;renderProfile()}}}),el('button',{type:'button',class:'btn ghost',text:'View as',on:{click:function(){viewAs='public';renderProfileView();window.scrollTo(0,0)}}}))));
 v.appendChild(card);
 function stat(n,l){return el('div',{class:'stat'},el('b',{text:String(n)}),el('span',{text:l}))}
-v.appendChild(el('div',{class:'stats'},stat(stamped.length+'/'+GYMS.length,'Gyms stamped'),stat(S.posts.length,'Sessions posted'),stat(joined,'Sessions joined')));
-var stc=el('section',{class:'card'},el('h3',{text:'Passport stamps'}));
+v.appendChild(el('div',{class:'stats',style:'grid-template-columns:repeat(2,1fr)'},stat(cragsSt.length+'/'+CRAGS.length,'Crags stamped'),stat(stamped.length+'/'+GYMS.length,'Gyms stamped'),stat(S.posts.length,'Sessions posted'),stat(joined,'Sessions joined')));
+var cstamped=CRAGS.filter(function(g){return S.stamps[g.id]});
+var cc=el('section',{class:'card'},el('h3',{text:'Crag stamps'}));
+if(cstamped.length){var cg=el('div',{class:'minis'});cstamped.forEach(function(g){cg.appendChild(stampSvg(g,S.stamps[g.id],CRAGS.indexOf(g)))});cc.appendChild(cg)}
+else cc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No crags yet. Visit a crag and stamp your passport.'}));
+v.appendChild(cc);
+var stc=el('section',{class:'card'},el('h3',{text:'Gym stamps'}));
 if(stamped.length){var mg=el('div',{class:'minis'});stamped.forEach(function(g){mg.appendChild(stampSvg(g,S.stamps[g.id],GYMS.indexOf(g)))});stc.appendChild(mg)}
 else stc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No stamps yet. Visit a gym and stamp your passport.'}));
 v.appendChild(stc);
@@ -429,6 +586,9 @@ var style=el('select',{id:'p-style'});
 ['Bouldering','Top-rope and lead','Trad','All of it'].forEach(function(s){var o=el('option',{value:s,text:s});if(P.style===s)o.selected=true;style.appendChild(o)});
 f.appendChild(el('label',{},document.createTextNode('Favorite style'),style));
 f.appendChild(el('label',{},document.createTextNode('Typical grade'),el('input',{type:'text',id:'p-grade',maxlength:'16',placeholder:'V3 or 5.10',value:P.grade||''})));
+f.appendChild(el('p',{class:'hint full',style:'margin:-4px 0 0',text:'Use a V grade for bouldering (V3) and a rope grade for sport or trad (5.10). Climb both? Write both, like 5.10 / V3. We use this to suggest a classic at each crag.'}));
+var pub=el('input',{type:'checkbox',id:'p-pub',style:'width:auto;margin-top:6px'});pub.checked=!!P.levelPublic;
+f.appendChild(el('label',{class:'full',style:'display:flex;gap:10px;align-items:flex-start'},pub,el('span',{text:'Show my favorite style and typical grade on my public profile. If off, only friends can see them.'})));
 f.appendChild(el('label',{class:'full'},document.createTextNode('About you'),el('textarea',{id:'p-bio',maxlength:'200',placeholder:'How long have you climbed? What are you hoping to find?',text:P.bio||''})));
 f.appendChild(el('div',{class:'full savebar'},el('button',{class:'btn',type:'submit',text:'Save profile'}),S.profile?el('button',{type:'button',class:'btn ghost',text:'Cancel',on:{click:function(){profEdit=false;renderProfile()}}}):null,wasSaved?el('span',{class:'hint',role:'status',text:wasSaved===1?'Saved on this device':'This view blocks saving. Open your live site in a normal browser tab to save.'}):null));
 f.addEventListener('submit',function(e){e.preventDefault();
@@ -438,17 +598,17 @@ var cc=checkContact(ctype.value,cin.value);
 if(!cc.ok){ch.textContent=cc.msg;cin.focus();toast('Fix the '+contactWord({type:ctype.value})+' to save');return}
 var oc=P.contact,changed=!oc||oc.type!==ctype.value||oc.value!==cc.value;
 if(changed)VER=null;
-S.profile={name:document.getElementById('p-name').value.trim(),username:uname,contact:{type:ctype.value,value:cc.value},verified:changed?false:!!P.verified,home:home.value,style:style.value,grade:document.getElementById('p-grade').value.trim(),bio:document.getElementById('p-bio').value.trim(),avatar:av,banner:bn};
+S.profile={name:document.getElementById('p-name').value.trim(),username:uname,contact:{type:ctype.value,value:cc.value},verified:changed?false:!!P.verified,home:home.value,style:style.value,grade:document.getElementById('p-grade').value.trim(),levelPublic:document.getElementById('p-pub').checked,bio:document.getElementById('p-bio').value.trim(),avatar:av,banner:bn};
 var ok=save();savedFlag=ok?1:2;profEdit=false;renderProfile();toast(ok?'Profile saved':'Could not save in this view')});
 v.appendChild(f);
 v.appendChild(el('p',{class:'sub',text:'Passport: '+n+' of '+GYMS.length+' gyms stamped.'}))}
 var SAMPLE_PROFILES={
-maya_climbs:{name:'Maya',home:'gt',style:'Bouldering',grade:'V4',bio:'Boulder rat and Boat Rock regular. Always up for a spotting swap.',av:'boulder',ang:135,st:{gt:'2026-09-14','wall-crawler':'2026-10-02'}},
-devon_sends:{name:'Devon',home:'crg-atl',style:'Top-rope and lead',grade:'5.11',bio:'Weeknight lead climber looking for a steady belay partner.',av:'carabiner',ang:60,st:{'crg-atl':'2026-10-21',kennesaw:'2026-10-28',escalade:'2026-11-05'}},
-priya_v4:{name:'Priya',home:'overlook',style:'Bouldering',grade:'V5',bio:'Weekend day trips to Rocktown. Carpool seats usually open.',av:'sunrise',ang:200,st:{overlook:'2026-08-30','atl-rocks':'2026-09-18',gt:'2026-10-09','wall-crawler':'2026-11-01'}},
-atl_boulderer:{name:'Jordan',home:'wall-crawler',style:'Bouldering',grade:'V3',bio:'Intown gym regular. Open to meeting new climbers.',av:'jug',ang:110,st:{'wall-crawler':'2026-10-12','atl-rocks':'2026-10-26'}},
-rocktown_rae:{name:'Rae',home:'gsu',style:'Bouldering',grade:'V6',bio:'Outdoors first. Gym when it rains.',av:'pine',ang:20,st:{gsu:'2026-09-03'}},
-chalk_and_coffee:{name:'Chris',home:'escalade',style:'All of it',grade:'5.10 / V3',bio:'Early morning sessions, coffee after.',av:'chalk',ang:160,st:{escalade:'2026-09-22',kennesaw:'2026-10-15','crg-atl':'2026-11-10'}}};
+maya_climbs:{name:'Maya',levelPublic:true,home:'gt',style:'Bouldering',grade:'V4',bio:'Boulder rat and Boat Rock regular. Always up for a spotting swap.',av:'boulder',ang:135,st:{gt:'2026-09-14','crg-mid':'2026-10-02'}},
+devon_sends:{name:'Devon',levelPublic:true,home:'crg-atl',style:'Top-rope and lead',grade:'5.11',bio:'Weeknight lead climber looking for a steady belay partner.',av:'carabiner',ang:60,st:{'crg-atl':'2026-10-21',kennesaw:'2026-10-28',adrenaline:'2026-11-05'}},
+priya_v4:{name:'Priya',levelPublic:true,home:'overlook',style:'Bouldering',grade:'V5',bio:'Weekend day trips to Rocktown. Carpool seats usually open.',av:'sunrise',ang:200,st:{overlook:'2026-08-30','crg-dor':'2026-09-18',gt:'2026-10-09','crg-mid':'2026-11-01'}},
+atl_boulderer:{name:'Jordan',home:'crg-mid',style:'Bouldering',grade:'V3',bio:'Intown gym regular. Open to meeting new climbers.',av:'jug',ang:110,st:{'crg-mid':'2026-10-12','crg-dor':'2026-10-26'}},
+rocktown_rae:{name:'Rae',home:'gt',style:'Bouldering',grade:'V6',bio:'Outdoors first. Gym when it rains.',av:'pine',ang:20,st:{gt:'2026-09-03'}},
+chalk_and_coffee:{name:'Chris',home:'adrenaline',style:'All of it',grade:'5.10 / V3',bio:'Early morning sessions, coffee after.',av:'chalk',ang:160,st:{adrenaline:'2026-09-22',kennesaw:'2026-10-15','crg-atl':'2026-11-10'}}};
 var viewUser=null;
 function avById(id){for(var i=0;i<AV.length;i++)if(AV[i].id===id)return{o:AV[i],i:i};return null}
 function userAvatar(u,size){var PR=SAMPLE_PROFILES[u.u],a=PR&&S.friends&&S.friends[u.u]?avById(PR.av):null;return a?iconAvatar(a.o,a.i,size):anonAvatar(u.u,size)}
@@ -461,7 +621,7 @@ v.appendChild(el('button',{type:'button',class:'btn ghost',style:'margin-bottom:
 if(!isF){
 var av0=anonAvatar(u.u,104);av0.classList.add('ring');
 v.appendChild(el('div',{class:'card pcard'},bannerEl(null),el('div',{class:'pbody'},
-el('div',{class:'phead'},av0,el('div',{class:'pname'},el('h2',{text:'@'+u.u}),el('p',{class:'hint',text:u.a}))))));
+el('div',{class:'phead'},av0,el('div',{class:'pname'},el('h2',{text:'@'+u.u}),el('p',{class:'hint',text:u.a}))),(PR.levelPublic&&(PR.style||PR.grade))?el('div',{class:'meta'},PR.style?el('span',{class:'tag',text:PR.style}):null,PR.grade?el('span',{class:'tag',text:'Typical grade '+PR.grade}):null):null)));
 v.appendChild(el('p',{class:'notice',text:'Full profiles are visible to friends only. Once @'+u.u+' accepts your request, you can see their name, photo, home gym, and stamps.'}));
 v.appendChild(el('section',{class:'card'},el('h3',{text:'Connect'}),friendRow(u)));return}
 var ban=el('div',{class:'banner',style:'background:linear-gradient('+(PR.ang||135)+'deg,var(--clay),var(--stamp))'});
@@ -469,7 +629,7 @@ var a=avById(PR.av),av=a?iconAvatar(a.o,a.i,104):anonAvatar(u.u,104);av.classLis
 v.appendChild(el('div',{class:'card pcard'},ban,el('div',{class:'pbody'},
 el('div',{class:'phead'},av,el('div',{class:'pname'},el('h2',{text:PR.name||'Climber'}),el('p',{class:'hint',text:'@'+u.u+' · Verified'}),PR.home?el('p',{class:'hint',text:'Home gym: '+placeOf(PR.home).n}):null)),
 el('div',{class:'meta'},PR.style?el('span',{class:'tag',text:PR.style}):null,PR.grade?el('span',{class:'tag',text:'Typical grade '+PR.grade}):null),
-PR.bio?el('p',{class:'bio',text:PR.bio}):null)));
+PR.bio?el('p',{class:'bio',text:PR.bio}):null,el('button',{type:'button',class:'btn',text:'Message '+(PR.name||'friend'),on:{click:function(){openDM(u)}}}))));
 var gyms=GYMS.filter(function(g){return PR.st&&PR.st[g.id]});
 var posts=SEED.filter(function(x){return x.by===PR.name});
 function stat(n,l){return el('div',{class:'stat'},el('b',{text:String(n)}),el('span',{text:l}))}
@@ -521,24 +681,96 @@ function drawRes(){
 res.textContent='';
 var q=friendQ.trim().toLowerCase().replace(/^@/,'');
 if(q.length<2){res.appendChild(el('p',{class:'hint',text:'Type at least 2 letters of a username.'}));return}
-var m=SAMPLE_USERS.filter(function(u){return u.u.indexOf(q)>=0});
+var m=visUsers().filter(function(u){return u.u.indexOf(q)>=0});
 if(!m.length){res.appendChild(el('p',{class:'hint',text:'No climbers found for “'+q+'”. Check the spelling of the username.'}));return}
 m.forEach(function(u){res.appendChild(friendRow(u))})}
 inp.addEventListener('input',function(){friendQ=inp.value;drawRes()});
 v.appendChild(el('section',{class:'card'},el('h3',{text:'Find climbers'}),
 el('p',{class:'hint',style:'margin:4px 0 0',text:'You are @'+S.profile.username+'. A request becomes a friendship only when the other climber accepts it. Search shows sample climbers for now, and they respond on their own.'}),inp,res));
 drawRes();
-var inc=SAMPLE_USERS.filter(function(u){return S.reqIn[u.u]}),snt=SAMPLE_USERS.filter(function(u){return S.sent[u.u]});
+var inc=visUsers().filter(function(u){return S.reqIn[u.u]}),snt=visUsers().filter(function(u){return S.sent[u.u]});
 var rc=el('section',{class:'card'},el('h3',{text:'Friend requests ('+inc.length+')'}));
 inc.forEach(function(u){rc.appendChild(requestRow(u))});
 if(snt.length){rc.appendChild(el('p',{class:'hint',style:'margin-top:12px',text:'Waiting for them to accept:'}));snt.forEach(function(u){rc.appendChild(friendRow(u))})}
 if(!inc.length&&!snt.length)rc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No pending requests.'}));
 v.appendChild(rc);
-var mine=SAMPLE_USERS.filter(function(u){return S.friends[u.u]});
+var mine=visUsers().filter(function(u){return S.friends[u.u]});
 var lc=el('section',{class:'card'},el('h3',{text:'Your friends ('+mine.length+')'}));
 if(mine.length)mine.forEach(function(u){lc.appendChild(friendRow(u))});
 else lc.appendChild(el('p',{class:'hint',style:'margin-top:8px',text:'No friends yet. Search for a username above to send a request.'}));
 v.appendChild(lc)}
+var viewThread=null,draft='';
+var DM_REPLIES=['Hey! Good to hear from you.','Want to set up a session this week?','I am free Saturday morning if that works.','Sounds good. Let me know what time.'];
+function visUsers(){return SAMPLE_USERS.filter(function(u){return !(S.blocked&&S.blocked['user-'+u.u])})}
+function dmAvatar(th,size){var u=SAMPLE_USERS.filter(function(x){return x.u===th.user})[0];return u?userAvatar(u,size):monoAvatar(th.who,size)}
+function openDM(u){
+var t=T(),k='dm-'+u.u,PR=SAMPLE_PROFILES[u.u]||{};
+if(!t[k])t[k]={id:k,dm:true,user:u.u,who:PR.name||('@'+u.u),seed:'user-'+u.u,anon:false,post:null,msgs:[],pend:null,unread:0,replies:0};
+draft='';save();tab('messages');viewThread=k;renderMessages();window.scrollTo(0,0)}
+var REPLIES=['Hey! Glad you can make it. What time works for you?','Sounds good. I will be there a bit early to warm up.','Perfect, see you then!','Nice. Bring water and chalk. See you there.'];
+function T(){S.threads=S.threads||{};return S.threads}
+function fmtTime(t){return new Date(t).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}
+function unreadTotal(){var n=0,t=T();Object.keys(t).forEach(function(k){n+=t[k].unread||0});return n}
+function updateBadge(){var b=document.getElementById('msg-badge'),n=unreadTotal();b.hidden=!n;b.textContent=n>9?'9+':String(n)}
+function deliverDue(){
+var t=T(),now=Date.now(),got=[];
+Object.keys(t).forEach(function(k){var th=t[k];
+if(th.pend&&now>=th.pend.at){th.msgs.push({f:'them',x:th.pend.x,t:th.pend.at});th.pend=null;
+if(!(viewThread===k&&!document.getElementById('v-messages').hidden))th.unread=(th.unread||0)+1;got.push(th)}});
+if(got.length){save();updateBadge()}
+return got}
+function queueReply(th){
+if((th.replies||0)>=3||th.pend)return;
+th.pend={at:Date.now()+2400,x:(th.dm?DM_REPLIES:REPLIES)[(th.replies||0)%4]};th.replies=(th.replies||0)+1;save();
+setTimeout(function(){var got=deliverDue();if(!got.length)return;
+if(!document.getElementById('v-messages').hidden)renderMessages();else toast('New message from '+got[0].who)},2500)}
+function openThreadFor(p){
+var t=T();
+if(!t[p.id]){t[p.id]={id:p.id,who:authorName(p),anon:isPubPost(p),seed:postSeed(p),post:{place:p.place,date:p.date,grades:p.grades||''},msgs:[],pend:null,unread:0,replies:0};
+draft='Hi! I’m in for '+placeOf(p.place).n+' on '+fmt(p.date)+'.'}else draft='';
+save();tab('messages');viewThread=p.id;renderMessages();window.scrollTo(0,0)}
+function renderThread(v,th){
+th.unread=0;save();
+v.appendChild(el('button',{type:'button',class:'btn ghost',style:'margin-bottom:12px',text:'← Messages',on:{click:function(){viewThread=null;renderMessages()}}}));
+var av=th.dm?dmAvatar(th,48):(th.anon?anonAvatar(th.seed,48):monoAvatar(th.who,48));
+v.appendChild(el('section',{class:'card'},
+el('div',{class:'author',style:'margin:0'},av,el('div',{},el('div',{class:'nm'},el('b',{text:th.who})),el('span',{class:'hint',text:th.dm?'@'+th.user:placeOf(th.post.place).n+' · '+fmt(th.post.date)+(th.post.grades?' · '+th.post.grades:'')}))),
+el('div',{class:'stack'},
+confirmBtn('Block','Tap again to block',function(){S.blocked=S.blocked||{};S.blocked[th.seed]=1;delete T()[th.id];delete S.joined[th.id];if(th.dm)[S.friends,S.sent,S.reqIn].forEach(function(o){if(o)delete o[th.user]});save();viewThread=null;renderMessages();updateBadge();toast(th.dm?'Blocked and removed from your friends.':'Blocked. Their posts are hidden.')}),
+el('button',{type:'button',class:'btn ghost',text:'Report',on:{click:function(){toast('Report noted. Moderation arrives with real accounts.')}}}))));
+v.appendChild(el('p',{class:'hint',text:'Tip: meet at the gym or trailhead, and tell someone your plans. Sample climbers reply on their own in this prototype, and messages stay on this device.'}));
+var box=el('div',{class:'msgs','aria-live':'polite'});
+if(!th.msgs.length)box.appendChild(el('p',{class:'hint',text:'Say hi to start the conversation.'}));
+th.msgs.forEach(function(m){box.appendChild(el('div',{class:'bub '+(m.f==='me'?'me':'them')},document.createTextNode(m.x),el('time',{text:fmtTime(m.t)})))});
+v.appendChild(box);
+var inp=el('input',{type:'text',id:'m-in',maxlength:'500',autocomplete:'off','aria-label':'Write a message',placeholder:'Write a message',value:draft});
+draft='';
+var form=el('form',{class:'composer'},inp,el('button',{class:'btn',type:'submit',text:'Send'}));
+form.addEventListener('submit',function(e){e.preventDefault();var x=inp.value.trim();if(!x)return;
+th.msgs.push({f:'me',x:x,t:Date.now()});save();queueReply(th);renderMessages();document.getElementById('m-in').focus();window.scrollTo(0,document.body.scrollHeight)});
+v.appendChild(form)}
+function renderMessages(){
+var v=document.getElementById('v-messages');v.textContent='';
+deliverDue();
+v.appendChild(el('h2',{text:'Messages'}));
+if(!hasAcct()){var g=gateInfo('Messages are for climbers with an account.');
+v.appendChild(el('section',{class:'card'},el('p',{class:'tx',text:g.text}),el('button',{type:'button',class:'btn',text:g.label,on:{click:function(){profEdit=g.edit;tab('profile')}}})));updateBadge();return}
+var t=T();
+if(viewThread&&t[viewThread]){renderThread(v,t[viewThread]);updateBadge();return}
+viewThread=null;
+var last=function(k){var m=t[k].msgs;return m.length?m[m.length-1].t:0};
+var ks=Object.keys(t).sort(function(a,b){return last(b)-last(a)});
+if(!ks.length){v.appendChild(el('section',{class:'card'},el('p',{class:'tx',text:'No messages yet. Tap I’m in on a post, then Message to say hi.'}),
+el('button',{type:'button',class:'btn',text:'Go to the Partner board',on:{click:function(){tab('board')}}})))}
+else{var card=el('section',{class:'card'});
+ks.forEach(function(k){var th=t[k],lm=th.msgs.length?th.msgs[th.msgs.length-1]:null;
+var av=th.dm?dmAvatar(th,44):(th.anon?anonAvatar(th.seed,44):monoAvatar(th.who,44));
+card.appendChild(el('div',{class:'frow'},el('button',{type:'button',class:'linkrow','aria-label':'Open conversation with '+th.who,on:{click:function(){viewThread=k;renderMessages();window.scrollTo(0,0)}}},av,
+el('div',{class:'who'},el('div',{},el('b',{text:th.who}),th.unread?el('span',{class:'dot','aria-label':'Unread'}):null),
+el('span',{class:'hint',text:th.dm?'@'+th.user:placeOf(th.post.place).n+' · '+fmt(th.post.date)}),
+el('span',{class:'hint prev',text:lm?(lm.f==='me'?'You: ':'')+lm.x:'No messages yet'})))))});
+v.appendChild(card)}
+updateBadge()}
 function confirmBtn(label,sure,act){
 var b=el('button',{type:'button',class:'btn ghost',text:label}),t;
 b.addEventListener('click',function(){
@@ -549,7 +781,7 @@ function renderSettings(){
 var v=document.getElementById('v-settings');v.textContent='';
 var st=S.settings||{};
 v.appendChild(el('h2',{text:'Settings'}));
-var cur=st.theme||'clay',grid=el('div',{class:'themes'});
+var cur=st.theme||'alpine',grid=el('div',{class:'themes'});
 THEMES.forEach(function(t){
 var sw=el('div',{class:'sw'});t.c.forEach(function(c){sw.appendChild(el('i',{style:'background:'+c}))});
 grid.appendChild(el('button',{type:'button',class:'theme','aria-pressed':String(cur===t.id),on:{click:function(){
@@ -580,21 +812,26 @@ confirmBtn('Clear my stamps','Tap again to confirm',function(){S.stamps={};save(
 confirmBtn('Clear my posts','Tap again to confirm',function(){S.posts=[];save();renderSettings();toast('Posts cleared')}),
 confirmBtn('Delete everything','Tap again to delete',function(){
 try{localStorage.removeItem('cragpass')}catch(x){}
-S={stamps:{},posts:[],joined:{},uid:'d'+Math.random().toString(36).slice(2,10)};profEdit=false;filter='all';fresh=null;friendQ='';VER=null;viewUser=null;applyTheme('clay');renderSettings();toast('Everything on this device was deleted')}));
+S={stamps:{},posts:[],joined:{},uid:'d'+Math.random().toString(36).slice(2,10)};profEdit=false;filter='all';fresh=null;friendQ='';VER=null;viewUser=null;viewThread=null;applyTheme('alpine');renderSettings();toast('Everything on this device was deleted')}));
+(function(){var n=Object.keys(S.blocked||{}).length;if(!n)return;
+v.appendChild(el('section',{class:'card'},el('h3',{text:'Blocked climbers ('+n+')'}),el('p',{class:'tx',text:'Their posts are hidden from your board.'}),
+el('div',{class:'stack'},el('button',{type:'button',class:'btn ghost',text:'Unblock all',on:{click:function(){S.blocked={};save();renderSettings();toast('Unblocked')}}}))))})();
 v.appendChild(el('section',{class:'card'},el('h3',{text:'Your data on this device'}),
 el('p',{class:'tx',text:'Clear parts of what the app has saved here, or delete it all, including your profile and settings.'}),clr));
 v.appendChild(el('section',{class:'card'},el('h3',{text:'About'}),
-el('p',{class:'tx',text:'Crag Pass is a prototype for climbers in Atlanta, Georgia.'}),
+el('p',{class:'tx',text:'Crag Pass is a prototype for climbers in Alabama, Tennessee and Georgia.'}),
 el('p',{class:'tx hint',text:'Gym details come from public listings and need checking before launch.'})))}
 function tab(which){
-viewUser=null;
+viewUser=null;viewThread=null;
 if(which!=='profile')profEdit=false;
-['pass','board','profile','friends','settings'].forEach(function(k){
+['pass','board','profile','friends','messages','settings'].forEach(function(k){
 document.getElementById('v-'+k).hidden=(k!==which);
-document.getElementById('t-'+k).setAttribute(k==='profile'||k==='friends'||k==='settings'?'aria-current':'aria-selected',String(k===which))});
-if(which==='pass')renderPass();else if(which==='board')renderBoard();else if(which==='profile')renderProfile();else if(which==='friends')renderFriends();else renderSettings()}
-['pass','board','profile','friends','settings'].forEach(function(k){document.getElementById('t-'+k).onclick=function(){tab(k)}});
+document.getElementById('t-'+k).setAttribute(k==='profile'||k==='friends'||k==='messages'||k==='settings'?'aria-current':'aria-selected',String(k===which))});
+if(which==='pass')renderPass();else if(which==='board')renderBoard();else if(which==='profile')renderProfile();else if(which==='friends')renderFriends();else if(which==='messages')renderMessages();else renderSettings();
+updateBadge()}
+['pass','board','profile','friends','messages','settings'].forEach(function(k){document.getElementById('t-'+k).onclick=function(){tab(k)}});
 tab('board');
+deliverDue();updateBadge();
 </script>
 </body>
 </html>
